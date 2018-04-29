@@ -11,7 +11,7 @@ In an empty workspace folder, run the following script:
 # clone the repositories
 git clone git@github.com:hbe72/cnl --branch develop
 git clone git@github.com:google/googletest --branch master
-git clone git@github.com:johnmcfarlane/bsp
+git clone git@github.com:johnmcfarlane/dsp
 
 # create an env directory (for include, lib etc.)
 ENV="$(pwd)/env"
