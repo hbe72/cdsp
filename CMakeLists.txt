@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.7.2)
-project(cnl)
-
-# CNL
+project(dsp)
 
 find_package(Cnl REQUIRED)
 
@@ -10,7 +8,6 @@ find_package(Cnl REQUIRED)
 find_package(GTest REQUIRED)
 
 # DSP tests
-
 set(sample_dsp_sources
         test/basic_math.cpp
         test/biquad.cpp
@@ -23,6 +20,7 @@ set(sample_dsp_sources
         test/virtual_float.cpp)
 
 include(CTest)
+include("cmake/common.cmake")
 
 foreach(source ${sample_dsp_sources})
     string(REPLACE "\." "_" target "${source}")
@@ -39,3 +37,5 @@ foreach(source ${sample_dsp_sources})
             $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:include>)
 endforeach(source)
+
+install(DIRECTORY include/ DESTINATION include)

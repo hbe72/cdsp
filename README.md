@@ -1,17 +1,15 @@
 # dsp
 
 ## Instructions
-
-(Tested on Debian Stretch.)
 In an empty workspace folder, run the following script:
 
 ```sh
 #!/bin/bash
 
 # clone the repositories
-git clone git@github.com:hbe72/cnl --branch develop
+git clone git@github.com:johnmcfarlane/cnl --branch develop
 git clone git@github.com:google/googletest --branch master
-git clone git@github.com:johnmcfarlane/dsp
+git clone git@github.com:hbe72/dsp
 
 # create an env directory (for include, lib etc.)
 ENV="$(pwd)/env"
@@ -33,9 +31,9 @@ popd
 
 # configure, build and test DSP
 mkdir -p build/dsp
-pushd build/dsp
-cmake -DCMAKE_INSTALL_PREFIX=$ENV ../../dsp
-cmake --build . -- -j 8
+pushd build/dspcd 
+cmake -DCMAKE_INSTALL_PREFIX=$ENV -DCMAKE_PREFIX_PATH=$ENV ../../dsp
+cmake --build . -- -j 8 install
 ctest
 popd
 ```
