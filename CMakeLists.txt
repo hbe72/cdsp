@@ -28,10 +28,16 @@ foreach(source ${sample_dsp_sources})
     add_executable(${target} ${source})
     add_test("${target}" "${target}")
     target_link_libraries(${target}
-            Cnl::Cnl
-            ${GTEST_LIBRARY}
-            ${GTEST_MAIN_LIBRARY}
-            general pthread)
+    Cnl::Cnl
+    ${GTEST_LIBRARY}
+    ${GTEST_MAIN_LIBRARY})
+
+    if (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
+    else ()
+        target_link_libraries(${target}
+        general pthread)
+    endif ()
+
     target_include_directories(
             ${target} PRIVATE
             $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
