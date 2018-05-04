@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.7.2)
 project(dsp)
 include("cmake/common.cmake")
 
-find_package(Boost)
-
 ExternalProject_Add(
         Cnl
         PREFIX ${CMAKE_BINARY_DIR}/Cnl
