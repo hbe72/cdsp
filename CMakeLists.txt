@@ -85,12 +85,6 @@ foreach(source ${sample_dsp_sources})
     add_gtest_dependency("${target}")
     add_cnl_dependency("${target}")
 
-    if (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
-    else ()
-        target_link_libraries(${target}
-        general pthread)
-    endif ()
-
     target_include_directories(
             ${target} PRIVATE
             $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
