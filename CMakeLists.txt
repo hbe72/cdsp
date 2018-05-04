@@ -8,7 +8,7 @@ ExternalProject_Add(
         Cnl
         PREFIX ${CMAKE_BINARY_DIR}/Cnl
         GIT_REPOSITORY "https://github.com/johnmcfarlane/cnl.git"
-        GIT_TAG "Develop"
+        GIT_TAG "develop"
         GIT_SHALLOW 1
         GIT_PROGRESS 1
         UPDATE_COMMAND ""
