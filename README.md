@@ -40,11 +40,11 @@ git clone https://github.com/hbe72/dsp.git
 2. Build tests:
     * Linux and Mac parallel with 8 cores
     ```
-    cmake --build . --target Tests -- j 8
+    cmake --build . --target tests -- -j8
     ```
     * Windows
     ```
-    cmake --build . --target Tests
+    cmake --build . --target test/tests
     ```
 3. Run the tests
     ```
