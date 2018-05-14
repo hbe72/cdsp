@@ -1,39 +1,61 @@
-# dsp
+# CDSP - Compositional DSP Library for C++
+
+CDSP is a header only DSP library written with [CNL](https://github.com/johnmcfarlane/cnl)
+aiming for floating point and fixed-point implementation of typical DSP kernels.   
+
+## Requirements are the same as with [CNL](https://github.com/johnmcfarlane/cnl)
+### Linux
+Requires:
+* GCC 5.1 / Clang 3.5
+* [Cmake](https://cmake.org/) 3.2.2
+
+Optional:
+* [Boost](https://www.boost.org/) - for multiprecision support with [CNL](https://github.com/johnmcfarlane/cnl)
+* [Doxygen](https://www.doxygen.org/) - generates documentation in the doc/gh-pages directory
+
+### Mac
+See the instructions for Linux. Works similarly. 
+For missing packages please use [Homebrew](https://brew.sh/).
+
+### Windows
+* MSBuild 15.0 (VS 2017)
+* [Cmake](https://cmake.org/) 3.8.0
 
 ## Instructions
-In an empty workspace folder, run the following script:
-
-```sh
-#!/bin/bash
-
-# clone the repositories
-git clone git@github.com:johnmcfarlane/cnl --branch develop
-git clone git@github.com:google/googletest --branch master
-git clone git@github.com:hbe72/dsp
-
-# create an env directory (for include, lib etc.)
-ENV="$(pwd)/env"
-mkdir -p $ENV
-
-# configure, build and install CNL in env/
-mkdir -p build/cnl
-pushd build/cnl
-cmake -DCMAKE_INSTALL_PREFIX=$ENV ../../cnl
-cmake --build . -- -j 8 install
-popd
-
-# configure, build and install Google Test in env/
-mkdir -p build/googletest
-pushd build/googletest
-cmake -DCMAKE_INSTALL_PREFIX=$ENV ../../googletest
-cmake --build . -- -j 8 install
-popd
-
-# configure, build and test DSP
-mkdir -p build/dsp
-pushd build/dspcd 
-cmake -DCMAKE_INSTALL_PREFIX=$ENV -DCMAKE_PREFIX_PATH=$ENV ../../dsp
-cmake --build . -- -j 8 install
-ctest
-popd
+### Download
+The library is hosted on [GitHub](https://github.com/hbe72/dsp)
 ```
+cd /some/directory
+git clone https://github.com/hbe72/dsp.git
+```
+
+###Build
+1. Generate the build system
+    ```
+    mkdir build
+    cd build
+    cmake /some/directory/dsp -DCMAKE_INSTALL_PREFIX=/directory/to/install 
+    ```     
+    
+2. Build tests:
+    * Linux and Mac parallel with 8 cores
+    ```
+    cmake --build . --target Tests -- j 8
+    ```
+    * Windows
+    ```
+    cmake --build . --target Tests
+    ```
+3. Run the tests
+    ```
+    ctest
+    ```
+4. Install 
+    
+    If you want to install the CDSP and CNL libraries to location specified by
+    CMAKE_INSTALL_PREFIX. 
+    ```
+    cmake --build . --target install 
+    ```
+
+    By default CDSP and CNL install to /usr/local. 
