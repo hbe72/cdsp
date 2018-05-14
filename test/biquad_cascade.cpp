@@ -17,7 +17,7 @@ static const double biquad_fix_accuracy = 0.00001;
 TEST(biquad_cascade, impulse_1sos_default)
 {
     // Default impulse response is unit impulse
-    cnl::dsp::biquad_cascade<double> biquadCascade;
+    cdsp::biquad_cascade<double> biquadCascade;
     EXPECT_NEAR(biquadCascade.filter(1.0), 1.0, biquad_double_accuracy);
     EXPECT_NEAR(biquadCascade.filter(0.0), 0.0, biquad_double_accuracy);
     EXPECT_NEAR(biquadCascade.filter(1.0), 1.0, biquad_double_accuracy);
@@ -38,7 +38,7 @@ TEST(biquad_cascade, impulse_1sos)
     std::vector<std::array<double, 5> > coeffs;
     coeffs.push_back(coeff);
 
-    cnl::dsp::biquad_cascade<double> biquadCascade(coeffs);
+    cdsp::biquad_cascade<double> biquadCascade(coeffs);
 
     EXPECT_NEAR(biquadCascade.filter(1.0), 0.274726851035635,
                 biquad_double_accuracy);
@@ -75,7 +75,7 @@ TEST(biquad_cascade, impulse_2sos)
     coeffs.push_back(coeff1);
     coeffs.push_back(coeff2);
 
-    cnl::dsp::biquad_cascade<double> biquadCascade(coeffs);
+    cdsp::biquad_cascade<double> biquadCascade(coeffs);
 
     EXPECT_NEAR(biquadCascade.filter(1.0), 0.082672620462993,
                 biquad_double_accuracy);
@@ -122,7 +122,7 @@ TEST(biquad_cascade, impulse_2sos_4channel)
     std::vector<double> zero(nChannels, 0.0);
     std::vector<double> res(nChannels, 0.0);
 
-    cnl::dsp::biquad_cascade<double> biquadCascade(coeffs, nChannels);
+    cdsp::biquad_cascade<double> biquadCascade(coeffs, nChannels);
     res = biquadCascade.filter_interleaved(one);
     for (unsigned int ch = 0; ch < nChannels; ++ch)
     {
@@ -170,7 +170,7 @@ TEST(biquad_cascade, impulse_2sos_4channel_for_each)
         input.push_back(zero);
     }
 
-    cnl::dsp::biquad_cascade<double> biquadCascade(coeffs, nChannels);
+    cdsp::biquad_cascade<double> biquadCascade(coeffs, nChannels);
 
     // filterin INPLACE for parallel nChannels
     std::for_each(input.begin(),
@@ -206,7 +206,7 @@ TEST(biquad_cascade, impulse_twosos_q4_20)
     coeffs.push_back(coeff1);
     coeffs.push_back(coeff2);
 
-    cnl::dsp::biquad_cascade<q4_20> biquadCascade(coeffs);
+    cdsp::biquad_cascade<q4_20> biquadCascade(coeffs);
     q4_20 one = 1.0;
     q4_20 zero = 0.0;
 
@@ -269,8 +269,8 @@ TEST(biquad_cascade, impulse_twosos_long_double_vs_q4_20) {
     coeffs_fix.push_back(coeff1_fix);
     coeffs_fix.push_back(coeff2_fix);
 
-    cnl::dsp::biquad_cascade<double> biquadCascade(coeffs);
-    cnl::dsp::biquad_cascade<q4_20>  biquadCascadeFix(coeffs_fix);
+    cdsp::biquad_cascade<double> biquadCascade(coeffs);
+    cdsp::biquad_cascade<q4_20>  biquadCascadeFix(coeffs_fix);
 
     // Impulse response
     for (int i = 0; i < 1; ++i)

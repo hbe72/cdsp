@@ -2,15 +2,13 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_CIRCULAR_BUFFER)
-#define CNL_DSP_CIRCULAR_BUFFER
+#if !defined(CDSP_CIRCULAR_BUFFER)
+#define CDSP_CIRCULAR_BUFFER
 
 #include <algorithm>
 #include <vector>
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 
 template<typename T>
@@ -71,6 +69,5 @@ void circular_buffer<T>::push_back(T const& data)
     m_buffer[m_last] = data;
 }
 
-} //namespace dsp
-} //namespace cnl
-#endif //CNL_DSP_CIRCULAR_BUFFER
+} //namespace cdsp
+#endif //CDSP_CIRCULAR_BUFFER

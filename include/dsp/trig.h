@@ -2,18 +2,15 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_TRIG)
-#define CNL_DSP_TRIG
+#if !defined(CDSP_TRIG)
+#define CDSP_TRIG
 
 #include "complex.h"
 #include "dsp_types.h"
 #include "dsp_math.h"
 
-namespace cnl
+namespace cdsp
 {
-namespace dsp
-{
-
 /// Table lookup based trigonometric functions implemented as thread safe
 /// singleton. "Meyers Singleton" to find more information.
 template<class T>
@@ -99,7 +96,7 @@ trig<T>::trig()
     m_cosQuarter[QUARTER_INDEX] = T{0.0};
     for (std::size_t i = 1; i < QUARTER_INDEX; ++i)
     {
-        double angle = cnl::dsp::math::c_pi_2 * double(i) / double(QUARTER_INDEX);
+        double angle = cdsp::math::c_pi_2 * double(i) / double(QUARTER_INDEX);
         m_cosQuarter[i] = static_cast<T>(std::cos(angle));
     }
 }
@@ -114,7 +111,7 @@ template<class T>
 T trig<T>::sin_turn(T turn)
 {
     auto mul = static_cast<cnl::elastic_number<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
-    auto index = static_cast<unsigned int>(cnl::dsp::math::floor(turn * mul));
+    auto index = static_cast<unsigned int>(cdsp::math::floor(turn * mul));
     T fra = turn * mul - index;
     T lo = sin_at(static_cast<std::size_t>(index));
     T hi = sin_at(static_cast<std::size_t>(index) + 1);
@@ -127,7 +124,7 @@ template<class T>
 T trig<T>::cos_turn(T turn)
 {
     auto mul = static_cast<cnl::elastic_number<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
-    auto index = static_cast<unsigned int>(cnl::dsp::math::floor(turn * mul));
+    auto index = static_cast<unsigned int>(cdsp::math::floor(turn * mul));
     T fra = turn * mul - index;
     T lo = cos_at(static_cast<std::size_t>(index));
     T hi = cos_at(static_cast<std::size_t>(index) + 1);
@@ -140,7 +137,7 @@ template<class T>
 complex<T> trig<T>::exp_turn(T turn)
 {
     auto mul = static_cast<cnl::elastic_number<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
-    auto index = static_cast<unsigned int>(cnl::dsp::math::floor(turn * mul));
+    auto index = static_cast<unsigned int>(cdsp::math::floor(turn * mul));
     T fra = turn * mul - index;
     complex<T> lo = operator[](index);
     complex<T> hi = operator[](index+1);
@@ -220,6 +217,5 @@ complex<T> trig<T>::operator[](std::size_t index)
     return complex<T>(r_cos, r_sin);
 }
 
-} // namespace dsp
-} // namespace cnl
-#endif // CNL_DSP_TRIG
+} // namespace cdsp
+#endif // CDSP_TRIG

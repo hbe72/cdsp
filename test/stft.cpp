@@ -21,13 +21,13 @@
 
 TEST(stft, boxcar_double)
 {
-    using complex_vector = cnl::dsp::complex_vector<double>;
-    using complex = cnl::dsp::complex<double>;
+    using complex_vector = cdsp::complex_vector<double>;
+    using complex = cdsp::complex<double>;
 
     unsigned int const fftSize = 256;
 
     double const twoPi {
-        cnl::dsp::math::c_2_pi
+        cdsp::math::c_2_pi
     };
 
     std::vector<double> vec(fftSize / 2, 0.0);
@@ -41,7 +41,7 @@ TEST(stft, boxcar_double)
     std::vector<int> exponents(1);
     std::vector<double> window(fftSize, 1.0);
 
-    cnl::dsp::stft<double> myKernel(fftSize, 1);
+    cdsp::stft<double> myKernel(fftSize, 1);
     myKernel.set_window(window);
 
     for (unsigned int impulseLocation = 0;
@@ -81,17 +81,17 @@ TEST(stft, boxcar_double)
 
 TEST(stft, hann_double)
 {
-    using complex_vector = cnl::dsp::complex_vector<double>;
-    using complex = cnl::dsp::complex<double>;
+    using complex_vector = cdsp::complex_vector<double>;
+    using complex = cdsp::complex<double>;
 
     unsigned int const fftSize = 256;
 
     double const twoPi {
-        cnl::dsp::math::c_2_pi
+        cdsp::math::c_2_pi
     };
 
     double const pi {
-        cnl::dsp::math::c_pi
+        cdsp::math::c_pi
     };
 
     std::vector<double> vec(fftSize / 2, 0.0);
@@ -104,7 +104,7 @@ TEST(stft, hann_double)
 
     std::vector<int> exponents(1);
 
-    cnl::dsp::stft<double> myKernel(fftSize, 1);
+    cdsp::stft<double> myKernel(fftSize, 1);
 
     for (unsigned int impulseLocation = 0;
          impulseLocation < (fftSize / 2);
@@ -239,8 +239,8 @@ TEST(stft, random_hann_16_double_q4_20)
     output_ref1.push_back(ref1);
     output_ref2.push_back(ref2);
 
-    std::vector<cnl::dsp::complex_vector<double> > output;
-    std::vector<cnl::dsp::complex_vector<q4_20> > output_fix;
+    std::vector<cdsp::complex_vector<double> > output;
+    std::vector<cdsp::complex_vector<q4_20> > output_fix;
     output.resize(1);
     output[0].resize(1 + fftSize / 2);
     output_fix.resize(1);
@@ -249,8 +249,8 @@ TEST(stft, random_hann_16_double_q4_20)
     std::vector<int> exponents(1);
     std::vector<int> exponents_fix(1);
 
-    cnl::dsp::stft<double> myKernel(fftSize, 1);
-    cnl::dsp::stft<q4_20>  myKernel_fix(fftSize, 1);
+    cdsp::stft<double> myKernel(fftSize, 1);
+    cdsp::stft<q4_20>  myKernel_fix(fftSize, 1);
 
     // Shoot in the first half
     myKernel.transform(input1, output, exponents);

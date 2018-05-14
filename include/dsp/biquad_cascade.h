@@ -2,17 +2,15 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_BIQUAD_CASCADE)
-#define CNL_DSP_BIQUAD_CASCADE
+#if !defined(CDSP_BIQUAD_CASCADE)
+#define CDSP_BIQUAD_CASCADE
 
 #include <algorithm>
 #include <vector>
 
 #include "biquad.h"
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 
 /// Cascaded Second Order IIR sections
@@ -55,7 +53,7 @@ public:
     void filter_channels(std::vector<std::vector<T> >& in);
 
 private:
-    std::vector<cnl::dsp::biquad<T> > m_biquad;
+    std::vector<cdsp::biquad<T> > m_biquad;
 };
 
 template<class T>
@@ -124,6 +122,5 @@ void biquad_cascade<T>::filter_channels(std::vector<std::vector<T> >& in)
     }
 }
 
-} // namespace dsp
-} // namespace cnl
-#endif //CNL_DSP_BIQUAD_CASCADE
+} // namespace cdsp
+#endif //CDSP_BIQUAD_CASCADE

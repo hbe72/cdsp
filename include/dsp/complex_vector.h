@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_COMPLEX_VECTOR)
-#define CNL_DSP_COMPLEX_VECTOR
+#if !defined(CDSP_COMPLEX_VECTOR)
+#define CDSP_COMPLEX_VECTOR
 
 #include <algorithm>
 #include <cassert>
@@ -15,9 +15,7 @@
 #include <dsp/dsp_math.h>
 #include <dsp/trig.h>
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 
 /// Defines maximum size for the complex Vector
@@ -219,9 +217,9 @@ complex_vector<T>& complex_vector<T>::operator+=(complex_vector<T> const& rhs)
 {
     assert(size() == rhs.size());
     std::transform(m_real.begin(), m_real.end(), rhs.m_real.begin(),
-                   m_real.begin(), cnl::dsp::math::plus<T>());
+                   m_real.begin(), cdsp::math::plus<T>());
     std::transform(m_imag.begin(), m_imag.end(), rhs.m_imag.begin(),
-                   m_imag.begin(), cnl::dsp::math::plus<T>());
+                   m_imag.begin(), cdsp::math::plus<T>());
     return *this;
 }
 
@@ -230,9 +228,9 @@ complex_vector<T>& complex_vector<T>::operator-=(complex_vector<T> const& rhs)
 {
     assert(size() == rhs.size());
     std::transform(m_real.begin(), m_real.end(), rhs.m_real.begin(),
-                   m_real.begin(), cnl::dsp::math::minus<T>());
+                   m_real.begin(), cdsp::math::minus<T>());
     std::transform(m_imag.begin(), m_imag.end(), rhs.m_imag.begin(),
-                   m_imag.begin(), cnl::dsp::math::minus<T>());
+                   m_imag.begin(), cdsp::math::minus<T>());
     return *this;
 }
 
@@ -331,7 +329,7 @@ R correlate_with_exp(complex_vector<T> const& vector,
                      size_t end)
 {
     size_t last = std::min(end, vector.size());
-    cnl::dsp::trig<T>& exp = cnl::dsp::trig<T>::instance();
+    cdsp::trig<T>& exp = cdsp::trig<T>::instance();
     std::size_t stride = static_cast<std::size_t>(step * exp.getTwoPiIndex() / fftsize);
     R sum(0.);
     for (std::size_t index = begin; index < last; ++index)
@@ -360,6 +358,5 @@ R energy(complex_vector<T> const& vector,
 }
 
 
-} // namespace dsp
-} // namespace cnl
-#endif //CNL_DSP_COMPLEX_VECTOR
+} // namespace cdsp
+#endif //CDSP_COMPLEX_VECTOR

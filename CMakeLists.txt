@@ -34,7 +34,7 @@ install(TARGETS Cdsp EXPORT CdspTargets)
 
 install(EXPORT CdspTargets
     FILE CdspConfig.cmake
-    NAMESPACE Cnl::
+    NAMESPACE Cdsp::
     DESTINATION lib/cmake/cdsp)
 
 install(DIRECTORY ${Cnl_DESTDIR}/ DESTINATION ${CMAKE_INSTALL_PREFIX})

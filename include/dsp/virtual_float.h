@@ -2,14 +2,12 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_VIRTUAL_FLOAT)
-#define CNL_DSP_VIRTUAL_FLOAT
+#if !defined(CDSP_VIRTUAL_FLOAT)
+#define CDSP_VIRTUAL_FLOAT
 
 #include "dsp_types.h"
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 /// Virtual_float implements floating point arithmetic with fixed-point.
 /// Very useful when DSP does not have floating point numbers and
@@ -143,7 +141,7 @@ template<typename FromT>
 virtual_float<T>::virtual_float(FromT const& value)
 {
     // TODO: Improve the accuracy, by getting the exponent
-    // TODO: log2 should be in cnl::dsp::math for all types
+    // TODO: log2 should be in cdsp::math for all types
     // Do this by log2 and multiplication of value to the range
     // and using the log2 value as exponent.
     m_mantissa = static_cast<T>(value);
@@ -401,7 +399,7 @@ virtual_float<T> operator*(virtual_float<T> const& lhs, virtual_float<T> const& 
 template<typename T>
 virtual_float<T>& virtual_float<T>::operator/=(virtual_float<T> const& rhs)
 {
-    m_mantissa = cnl::dsp::math::divides<T,T>()(m_mantissa,rhs.m_mantissa);
+    m_mantissa = cdsp::math::divides<T,T>()(m_mantissa,rhs.m_mantissa);
     normalize();
     return *this;
 }
@@ -410,7 +408,7 @@ template<>
 inline virtual_float<q4_20>&
 virtual_float<q4_20>::operator/=(virtual_float<q4_20> const& rhs)
 {
-    q8_40 mantissa = cnl::dsp::math::divides<q4_20,q4_20>()(m_mantissa,rhs.m_mantissa);
+    q8_40 mantissa = cdsp::math::divides<q4_20,q4_20>()(m_mantissa,rhs.m_mantissa);
     m_exponent = m_exponent - rhs.m_exponent;
     normalize(mantissa);
     return *this;
@@ -422,7 +420,7 @@ virtual_float<q8_40>::operator/=(virtual_float<q8_40> const& rhs)
 {
     q4_20 lhs_mantissa = m_mantissa;
     q4_20 rhs_mantissa = rhs.m_mantissa;
-    q8_40 mantissa = cnl::dsp::math::divides<q4_20,q4_20>()(lhs_mantissa,rhs_mantissa);
+    q8_40 mantissa = cdsp::math::divides<q4_20,q4_20>()(lhs_mantissa,rhs_mantissa);
     m_exponent = m_exponent - rhs.m_exponent;
     normalize(mantissa);
     return *this;
@@ -545,6 +543,5 @@ inline virtual_float<q8_40> sqrt(virtual_float<q8_40> const& rhs)
 }
 #endif
 
-} // namespace dsp
-} // namespace cnl
-#endif //CNL_DSP_VIRTUAL_FLOAT
+} // namespace cdsp
+#endif //CDSP_VIRTUAL_FLOAT

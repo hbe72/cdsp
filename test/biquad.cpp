@@ -12,7 +12,7 @@ static constexpr double biquad_fix_accuracy = 0.00001;
 TEST(biquad, impulse_default)
 {
     // Default impulse response is unit impulse response
-    cnl::dsp::biquad<double> biquad;
+    cdsp::biquad<double> biquad;
 
     EXPECT_NEAR(biquad.filter(1.0), 1.0, biquad_double_accuracy);
     EXPECT_NEAR(biquad.filter(0.0), 0.0, biquad_double_accuracy);
@@ -32,7 +32,7 @@ TEST(biquad, impulse)
                                     0.274726851035635, -0.073623846384979,
                                     0.172531250527518 } };
 
-    cnl::dsp::biquad<double> biquad(coeff);
+    cdsp::biquad<double> biquad(coeff);
 
     EXPECT_NEAR(biquad.filter(1.0), 0.274726851035635,
                 biquad_double_accuracy);
@@ -63,7 +63,7 @@ TEST(biquad, impulse_q4_20)
                                    0.274726851035635, -0.073623846384979,
                                    0.172531250527518 } };
 
-    cnl::dsp::biquad<q4_20> biquad(coeff);
+    cdsp::biquad<q4_20> biquad(coeff);
 
     q4_20 one = 1.0;
     q4_20 zero = 0.0;

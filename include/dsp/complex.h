@@ -2,17 +2,15 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_COMPLEX)
-#define CNL_DSP_COMPLEX
+#if !defined(CDSP_COMPLEX)
+#define CDSP_COMPLEX
 
 //#include <cmath>
 
 #include "dsp_types.h"
 #include "dsp_math.h"
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 
 /// Complex numbers
@@ -146,8 +144,8 @@ complex<T>& complex<T>::operator/=(complex<T> const& rhs)
     T real = m_real * rhs.m_real + m_imag * rhs.m_imag;
     T imag = m_imag * rhs.m_real - m_real * rhs.m_imag;
     T div = rhs.m_real * rhs.m_real + rhs.m_imag * rhs.m_imag;
-    m_real = cnl::dsp::math::divides<T,T>()(real, div);
-    m_imag = cnl::dsp::math::divides<T,T>()(imag, div);
+    m_real = cdsp::math::divides<T,T>()(real, div);
+    m_imag = cdsp::math::divides<T,T>()(imag, div);
     return *this;
 }
 
@@ -187,7 +185,7 @@ template<typename T>
 T complex<T>::abs() const
 {
     T val = m_real * m_real + m_imag * m_imag;
-    T res = cnl::dsp::math::sqrt(val);
+    T res = cdsp::math::sqrt(val);
     return res;
 }
 
@@ -211,6 +209,5 @@ complex<T> conj(complex<T> const& value)
     return ret;
 }
 
-} // namespace dsp
-} // namespace cnl
-#endif //CNL_DSP_COMPLEX
+} // namespace cdsp
+#endif //CDSP_COMPLEX

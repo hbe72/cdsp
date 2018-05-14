@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_STFT)
-#define CNL_DSP_STFT
+#if !defined(CDSP_STFT)
+#define CDSP_STFT
 
 #include <algorithm>
 #include <cassert>
@@ -15,9 +15,7 @@
 #include "complex_vector.h"
 #include "fft.h"
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 
 template<class T>
@@ -105,7 +103,7 @@ void stft<T>::set_boxcar_window()
 template<class T>
 void stft<T>::set_hann_window()
 {
-    cnl::dsp::trig<T>& trig = cnl::dsp::trig<T>::instance();
+    cdsp::trig<T>& trig = cdsp::trig<T>::instance();
     unsigned int twoPI = trig.get_twopi_index();
     unsigned int stride = (twoPI >> 1) / m_fftSize;
     assert(stride > 0);
@@ -138,7 +136,7 @@ void stft<T>::transform(std::vector<std::vector<T> > const& input,
                        m_prevSigBuffer[ch].end(),
                        m_window.begin(),
                        m_tmp.begin(),
-                       cnl::dsp::math::multiplies<T, T>());
+                       cdsp::math::multiplies<T, T>());
         // Element wise multiply of new input signal vector with
         // latter half of window function, result to latter half
         // of m_tmp.
@@ -147,15 +145,14 @@ void stft<T>::transform(std::vector<std::vector<T> > const& input,
                        m_window.begin() +
                        m_window.size() / 2,
                        m_tmp.begin() + m_window.size() / 2,
-                       cnl::dsp::math::multiplies<T, T>());
+                       cdsp::math::multiplies<T, T>());
         // Save the new input signal vector to previous for the next call
         std::copy(input[ch].begin(),
                   input[ch].end(),
                   m_prevSigBuffer[ch].begin());
         // Transform the windowed vector to complex numbers
-        exponents[ch] = cnl::dsp::fft::real_fft(m_tmp, output[ch]);
+        exponents[ch] = cdsp::fft::real_fft(m_tmp, output[ch]);
     }
 }
-} //namespace dsp
-} //namespace cnl
-#endif //CNL_DSP_STFT
+} //namespace cdsp
+#endif //CDSP_STFT

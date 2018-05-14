@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_FFT)
-#define CNL_DSP_FFT
+#if !defined(CDSP_FFT)
+#define CDSP_FFT
 
 #include "dsp_types.h"
 #include "dsp_math.h"
@@ -12,9 +12,7 @@
 #include "complex_vector.h"
 #include "trig.h"
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 ///Various fixedpoint FFT implementations
 namespace fft
@@ -78,7 +76,7 @@ template<typename T>
 static void ct_core(complex_vector<T>& inout,
                     bool inverseTransform)
 {
-    cnl::dsp::trig<T>& exp = cnl::dsp::trig<T>::instance();
+    cdsp::trig<T>& exp = cdsp::trig<T>::instance();
     auto N = static_cast<unsigned int>(inout.size());
     auto S = static_cast<unsigned int>(std::log2(N));
     auto stride = exp.get_twopi_index() >> S;
@@ -149,7 +147,7 @@ template<typename T>
 static int bf_core(complex_vector<T>& inout,
                    bool inverseTransform)
 {
-    cnl::dsp::trig<T>& exp = cnl::dsp::trig<T>::instance();
+    cdsp::trig<T>& exp = cdsp::trig<T>::instance();
     auto N = static_cast<unsigned int>(inout.size());
     auto S = static_cast<unsigned int>(std::log2(N));
     auto stride = exp.get_twopi_index() >> S;
@@ -164,7 +162,7 @@ static int bf_core(complex_vector<T>& inout,
         unsigned int L_s = 1u << (q - 1);
         unsigned int r = N >> q;
         int adj = (q > 2) ? 3 : 2;
-        int norm = cnl::dsp::math::leading_bits(max) - adj;
+        int norm = cdsp::math::leading_bits(max) - adj;
         normalize(inout, norm);
         exponent -= norm;
         max = 0.;
@@ -198,7 +196,7 @@ static void real_fft_postprocess(complex_vector<T>& out)
 {
     unsigned int N = static_cast<unsigned int>(out.size());
     unsigned int S = static_cast<unsigned int>(std::log2(N));
-    cnl::dsp::trig<T>& exp = cnl::dsp::trig<T>::instance();
+    cdsp::trig<T>& exp = cdsp::trig<T>::instance();
     unsigned int stride = exp.get_twopi_index() >> (S + 1);
 
     // out[N] equals to out[0], so, let's add it
@@ -207,10 +205,10 @@ static void real_fft_postprocess(complex_vector<T>& out)
     // Process the first and last index
     unsigned int k = 0;
     unsigned int r = N;
-    complex<T> xPlus(cnl::dsp::math::arithmetic_right_shift(out[k].real() + out[r].real(), 1),
-                     cnl::dsp::math::arithmetic_right_shift(out[k].imag() + out[r].imag(), 1));
-    complex<T> xMinus(cnl::dsp::math::arithmetic_right_shift(out[k].real() - out[r].real(), 1),
-                      cnl::dsp::math::arithmetic_right_shift(out[k].imag() - out[r].imag(), 1));
+    complex<T> xPlus(cdsp::math::arithmetic_right_shift(out[k].real() + out[r].real(), 1),
+                     cdsp::math::arithmetic_right_shift(out[k].imag() + out[r].imag(), 1));
+    complex<T> xMinus(cdsp::math::arithmetic_right_shift(out[k].real() - out[r].real(), 1),
+                      cdsp::math::arithmetic_right_shift(out[k].imag() - out[r].imag(), 1));
     complex<T> x1(xPlus.real(), xMinus.imag());
     complex<T> x2(xPlus.imag(), xMinus.real());
 
@@ -223,10 +221,10 @@ static void real_fft_postprocess(complex_vector<T>& out)
         // Process the remaining in place to both directions simultaneously
         for (k = 1; k < N / 2; k++) {
             r = N - k;
-            xPlus = complex<T>(cnl::dsp::math::arithmetic_right_shift(out[k].real() + out[r].real(), 1),
-                               cnl::dsp::math::arithmetic_right_shift(out[k].imag() + out[r].imag(), 1));
-            xMinus = complex<T>(cnl::dsp::math::arithmetic_right_shift(out[k].real() - out[r].real(), 1),
-                                cnl::dsp::math::arithmetic_right_shift(out[k].imag() - out[r].imag(), 1));
+            xPlus = complex<T>(cdsp::math::arithmetic_right_shift(out[k].real() + out[r].real(), 1),
+                               cdsp::math::arithmetic_right_shift(out[k].imag() + out[r].imag(), 1));
+            xMinus = complex<T>(cdsp::math::arithmetic_right_shift(out[k].real() - out[r].real(), 1),
+                                cdsp::math::arithmetic_right_shift(out[k].imag() - out[r].imag(), 1));
             x1 = complex<T>(xPlus.real(), xMinus.imag());
             x2 = complex<T>(xPlus.imag(), xMinus.real());
             xa = x1 + conj(exp[k * stride] * x2);
@@ -238,10 +236,10 @@ static void real_fft_postprocess(complex_vector<T>& out)
         // And don't forget the midpoint
         k = N / 2;
         r = N - k;
-        xPlus = complex<T>(cnl::dsp::math::arithmetic_right_shift(out[k].real() + out[r].real(), 1),
-                           cnl::dsp::math::arithmetic_right_shift(out[k].imag() + out[r].imag(), 1));
-        xMinus = complex<T>(cnl::dsp::math::arithmetic_right_shift(out[k].real() - out[r].real(), 1),
-                            cnl::dsp::math::arithmetic_right_shift(out[k].imag() - out[r].imag(), 1));
+        xPlus = complex<T>(cdsp::math::arithmetic_right_shift(out[k].real() + out[r].real(), 1),
+                           cdsp::math::arithmetic_right_shift(out[k].imag() + out[r].imag(), 1));
+        xMinus = complex<T>(cdsp::math::arithmetic_right_shift(out[k].real() - out[r].real(), 1),
+                            cdsp::math::arithmetic_right_shift(out[k].imag() - out[r].imag(), 1));
         x1 = complex<T>(xPlus.real(), xMinus.imag());
         x2 = complex<T>(xPlus.imag(), xMinus.real());
         xa = x1 + conj(exp[k * stride] * x2);
@@ -340,6 +338,5 @@ inline int real_fft(std::vector<q8_40> const& in, complex_vector<q8_40>& out)
 #endif
 
 } // namespace fft
-} // namespace dsp
-} // namespace cnl
-#endif //CNL_DSP_FFT
+} // namespace cdsp
+#endif //CDSP_FFT

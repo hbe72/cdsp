@@ -12,7 +12,7 @@
 
 TEST(complex_vector, vector)
 {
-    cnl::dsp::complex_vector<float> vec(10, cnl::dsp::complex<float>(1.0f, 2.0f));
+    cdsp::complex_vector<float> vec(10, cdsp::complex<float>(1.0f, 2.0f));
 
     EXPECT_EQ(static_cast<int>(vec.size()), 10);
     std::vector<float>& real = vec.real_data();
@@ -26,7 +26,7 @@ TEST(complex_vector, vector)
         EXPECT_EQ(i, 2.0f);
     }
 
-    vec.set_at(3, cnl::dsp::complex<float>(3.0f));
+    vec.set_at(3, cdsp::complex<float>(3.0f));
     for (std::size_t index = 0; index < 10; index++)
     {
         if (index == 3)
@@ -61,10 +61,10 @@ TEST(complex_vector, vector)
 
 TEST(complex_vector, vector_add)
 {
-    cnl::dsp::complex_vector<float> vec1(10, cnl::dsp::complex<float>(1.0f, 2.0f));
-    cnl::dsp::complex_vector<float> vec2(10, cnl::dsp::complex<float>(2.0f, 7.0f));
+    cdsp::complex_vector<float> vec1(10, cdsp::complex<float>(1.0f, 2.0f));
+    cdsp::complex_vector<float> vec2(10, cdsp::complex<float>(2.0f, 7.0f));
 
-    cnl::dsp::complex_vector<float> vec = vec1 + vec2;
+    cdsp::complex_vector<float> vec = vec1 + vec2;
 
     std::vector<float> const& real = vec.real();
     std::vector<float> const& imag = vec.imag();
@@ -80,10 +80,10 @@ TEST(complex_vector, vector_add)
 
 TEST(complex_vector, vector_substract)
 {
-    cnl::dsp::complex_vector<float> vec1(10, cnl::dsp::complex<float>(1.0f, 2.0f));
-    cnl::dsp::complex_vector<float> vec2(10, cnl::dsp::complex<float>(2.0f, 7.0f));
+    cdsp::complex_vector<float> vec1(10, cdsp::complex<float>(1.0f, 2.0f));
+    cdsp::complex_vector<float> vec2(10, cdsp::complex<float>(2.0f, 7.0f));
 
-    cnl::dsp::complex_vector<float> vec = vec1 - vec2;
+    cdsp::complex_vector<float> vec = vec1 - vec2;
 
     std::vector<float> const& real = vec.real();
     std::vector<float> const& imag = vec.imag();
@@ -108,7 +108,7 @@ TEST(complex_vector, vector_substract)
 
 TEST(complex_vector, vector_conjugate)
 {
-    cnl::dsp::complex_vector<float> vec(10, cnl::dsp::complex<float>(1.0f, 2.0f));
+    cdsp::complex_vector<float> vec(10, cdsp::complex<float>(1.0f, 2.0f));
 
     std::vector<float> const& real = vec.real();
     std::vector<float> const& imag = vec.imag();
@@ -130,7 +130,7 @@ TEST(complex_vector, vector_conjugate)
         EXPECT_EQ(i, -2.0f);
     }
 
-    cnl::dsp::complex_vector<float> vec2 = conj(vec);
+    cdsp::complex_vector<float> vec2 = conj(vec);
     std::vector<float> const& re = vec2.real();
     std::vector<float> const& im = vec2.imag();
     for (float r : re)
@@ -145,7 +145,7 @@ TEST(complex_vector, vector_conjugate)
 
 TEST(complex_vector, vector_abs)
 {
-    cnl::dsp::complex_vector<float> vec(10, cnl::dsp::complex<float>(1.0f, 2.0f));
+    cdsp::complex_vector<float> vec(10, cdsp::complex<float>(1.0f, 2.0f));
 
     std::vector<float> absoluteValues = abs(vec);
 
@@ -157,10 +157,10 @@ TEST(complex_vector, vector_abs)
 
 TEST(complex_vector, vector_hadamard)
 {
-    cnl::dsp::complex_vector<float> vec1(10, cnl::dsp::complex<float>(1.5f, 2.0f));
-    cnl::dsp::complex_vector<float> vec2(10, cnl::dsp::complex<float>(2.0f, 7.0f));
+    cdsp::complex_vector<float> vec1(10, cdsp::complex<float>(1.5f, 2.0f));
+    cdsp::complex_vector<float> vec2(10, cdsp::complex<float>(2.0f, 7.0f));
 
-    cnl::dsp::complex_vector<float> res = hadamard(vec1, vec2);
+    cdsp::complex_vector<float> res = hadamard(vec1, vec2);
 
     std::vector<float> const& re = res.real();
     std::vector<float> const& im = res.imag();
@@ -176,26 +176,26 @@ TEST(complex_vector, vector_hadamard)
 
 TEST(complex_vector, vector_dot)
 {
-    cnl::dsp::complex_vector<float> vec1(10, cnl::dsp::complex<float>(1.5f, 2.0f));
-    cnl::dsp::complex_vector<float> vec2(10, cnl::dsp::complex<float>(2.0f, 7.0f));
+    cdsp::complex_vector<float> vec1(10, cdsp::complex<float>(1.5f, 2.0f));
+    cdsp::complex_vector<float> vec2(10, cdsp::complex<float>(2.0f, 7.0f));
 
     {
-        cnl::dsp::complex<float> res = cnl::dsp::dot<float, float>(vec1, vec2);
+        cdsp::complex<float> res = cdsp::dot<float, float>(vec1, vec2);
         EXPECT_EQ(res.real(), 170.0f);
         EXPECT_EQ(res.imag(), -65.0f);
     }
     {
-        cnl::dsp::complex<float> res = cnl::dsp::dot<float, float>(vec1, vec2, true);
+        cdsp::complex<float> res = cdsp::dot<float, float>(vec1, vec2, true);
         EXPECT_EQ(res.real(), -110.0f);
         EXPECT_EQ(res.imag(), 145.0f);
     }
 }
 TEST(complex_vector, vector_virtual_float_dot)
 {
-    using cnl::dsp::complex;
-    using cnl::dsp::complex_vector;
-    using cnl::dsp::dot;
-    using cnl::dsp::virtual_float;
+    using cdsp::complex;
+    using cdsp::complex_vector;
+    using cdsp::dot;
+    using cdsp::virtual_float;
 
     complex_vector<float> vec1(10, complex<float>(0.125f, 0.250f));
     complex_vector<float> vec2(10, complex<float>(0.250f, 0.625f));
@@ -217,7 +217,7 @@ TEST(complex_vector, vector_virtual_float_dot)
         complex<virtual_float<q4_20> > vf = dot<q4_20, virtual_float<q4_20> >(vece1, vece2);
         EXPECT_EQ(static_cast<float>(vf.real()), 1.875f);
         EXPECT_EQ(static_cast<float>(vf.imag()), -0.15625f);
-        cnl::dsp::complex<float> res = vf;
+        cdsp::complex<float> res = vf;
         EXPECT_EQ(res.real(), 1.875f);
         EXPECT_EQ(res.imag(), -0.15625f);
     }

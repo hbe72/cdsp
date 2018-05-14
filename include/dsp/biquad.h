@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_BIQUAD)
-#define CNL_DSP_BIQUAD
+#if !defined(CDSP_BIQUAD)
+#define CDSP_BIQUAD
 
 #include <array>
 #include <vector>
@@ -11,9 +11,7 @@
 #include "circular_buffer.h"
 #include "dsp_types.h"
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 
 ///Direct form I second order IIR
@@ -57,8 +55,8 @@ private:
     unsigned int m_channelCount;
 
     /// Delay lines of the IIR.
-    std::vector<cnl::dsp::circular_buffer<T> > m_stateX;
-    std::vector<cnl::dsp::circular_buffer<T> > m_stateY;
+    std::vector<cdsp::circular_buffer<T> > m_stateX;
+    std::vector<cdsp::circular_buffer<T> > m_stateY;
 };
 
 template<class T>
@@ -164,6 +162,5 @@ inline std::vector<q4_20> biquad<q4_20>::filter_interleaved(std::vector<q4_20> c
     return out;
 }
 
-} //namespace dsp
-} //namespace cnl
-#endif //CNL_DSP_BIQUAD
+} //namespace cdsp
+#endif //CDSP_BIQUAD

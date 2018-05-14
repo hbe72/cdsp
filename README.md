@@ -29,7 +29,7 @@ cd /some/directory
 git clone https://github.com/hbe72/dsp.git
 ```
 
-###Build
+### Build
 1. Generate the build system
     ```
     mkdir build

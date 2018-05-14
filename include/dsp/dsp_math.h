@@ -2,15 +2,13 @@
 // Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
-#if !defined(CNL_DSP_MATH)
-#define CNL_DSP_MATH
+#if !defined(CDSP_MATH)
+#define CDSP_MATH
 
 #include <cstdint>
 #include "dsp_types.h"
 
-namespace cnl
-{
-namespace dsp
+namespace cdsp
 {
 namespace math
 {
@@ -154,8 +152,6 @@ inline int leading_bits(const cnl::fixed_point<Rep, Exponent> a)
 }
 
 } // namespace math
-} // namespace dsp
-} // namespace cnl
+} // namespace cdsp
 
-
-#endif //CNL_DSP_MATH
+#endif //CDSP_MATH

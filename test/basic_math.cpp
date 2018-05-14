@@ -27,7 +27,7 @@ TEST(basic_math, floor)
         {
             float a = nbrs[index];
             float expected = res[index];
-            EXPECT_EQ(cnl::dsp::math::floor(a), expected)
+            EXPECT_EQ(cdsp::math::floor(a), expected)
             << "index: " << index << std::endl;
         }
     }
@@ -36,9 +36,9 @@ TEST(basic_math, floor)
         {
             q4_20 a = nbrs[index];
             q4_20 expected = res[index];
-            EXPECT_EQ(static_cast<float>(cnl::dsp::math::floor(a)), res[index])
+            EXPECT_EQ(static_cast<float>(cdsp::math::floor(a)), res[index])
             << "index: " << index << std::endl;
-            EXPECT_EQ(cnl::dsp::math::floor(a), expected)
+            EXPECT_EQ(cdsp::math::floor(a), expected)
             << "index: " << index << std::endl;
         }
     }
