@@ -60,11 +60,11 @@ set(sample_cdsp_sources
         virtual_float.cpp)
 
 include(CTest)
-add_custom_target(tests)
+add_custom_target(Tests)
 
 foreach(source ${sample_cdsp_sources})
-    string(REPLACE "\." "_" target "${source}")
-    string(REPLACE "/" "-" target "${target}")
+    string(REPLACE "\.cpp" "" stripped "${source}")
+    string(REPLACE "/" "-" target "Test-${stripped}")
     add_executable(${target} ${source})
     add_test("${target}" "${target}")
 
@@ -75,5 +75,5 @@ foreach(source ${sample_cdsp_sources})
         ${target} PRIVATE
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
-    add_dependencies(tests "${target}")
+    add_dependencies(Tests "${target}")
 endforeach(source)
