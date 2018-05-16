@@ -46,6 +46,7 @@ TEST(basic_math, floor)
 
 }
 
+
 TEST(basic_math, div)
 {
 
@@ -58,17 +59,17 @@ TEST(basic_math, div)
     EXPECT_EQ(static_cast<float>(c2), 0.5);
 }
 
+template<class Rep = int, int Exponent = 0, class RoundingTag = cnl::nearest_rounding_tag>
+using rounding_fixed_point = cnl::fixed_point<cnl::rounding_integer<Rep, RoundingTag>, Exponent>;
 
-/*
 TEST(basic_math, round)
 {
 
-    using q4_4 = rsfp<4, 4>;
-    using q4_1 = rsfp<4, 1>;
-    q4_4 a = 0.4375;
+    using q4_4 = rounding_fixed_point<std::int32_t, -4>;
+    using q4_1 = rounding_fixed_point<std::int32_t, -1>;
+
+    q4_4 a(0.4375);
     q4_1 b = a;
     EXPECT_EQ(a, 0.4375);
     EXPECT_EQ(b, 0.5);
-
 }
-*/
