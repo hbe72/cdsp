@@ -1,4 +1,6 @@
 # CDSP - Compositional DSP Library for C++
+Build status for Linux and Mac:
+[![Build Status](https://travis-ci.org/hbe72/cdsp.svg?branch=develop)](https://travis-ci.org/hbe72/cdsp)
 
 CDSP is a header only DSP library written with [CNL](https://github.com/johnmcfarlane/cnl)
 aiming for floating point and fixed-point implementation of typical DSP kernels.   
