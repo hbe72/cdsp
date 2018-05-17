@@ -1,0 +1,25 @@
+version: 0.1.{build}
+image: Visual Studio 2017
+
+environment:
+  fast_finish: true     # set this flag to immediately finish build once one of the jobs fails.
+  matrix:
+    - platform: x64
+      configuration: Release
+      cmake_generator: "Visual Studio 15 2017 Win64"
+      msbuild_property: x64
+    - platform: x64
+      configuration: Debug
+      cmake_generator: "Visual Studio 15 2017 Win64"
+      msbuild_property: x64
+
+build_script:
+- cmd: >-
+    cmake -DCMAKE_BUILD_TYPE=%configuration% -G "%cmake_generator%" .
+
+    cmake --build . --target src/test/Tests -- /property:Configuration=%configuration% /property:Platform=%msbuild_property%
+test_script:
+- cmd: >-
+    ctest
+
+shallow_clone: true
