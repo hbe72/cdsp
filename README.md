@@ -29,7 +29,7 @@ For missing packages please use [Homebrew](https://brew.sh/).
 The library is hosted on [GitHub](https://github.com/hbe72/dsp)
 ```
 cd /some/directory
-git clone https://github.com/hbe72/dsp.git
+git clone https://github.com/hbe72/cdsp.git
 ```
 
 ### Build
@@ -37,7 +37,7 @@ git clone https://github.com/hbe72/dsp.git
     ```
     mkdir build
     cd build
-    cmake /some/directory/dsp -DCMAKE_INSTALL_PREFIX=/directory/to/install 
+    cmake /some/directory/cdsp -DCMAKE_INSTALL_PREFIX=/directory/to/install 
     ```     
     
 2. Build tests:
