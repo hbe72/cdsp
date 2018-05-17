@@ -104,8 +104,8 @@ template<class T>
 void stft<T>::set_hann_window()
 {
     cdsp::trig<T>& trig = cdsp::trig<T>::instance();
-    unsigned int twoPI = trig.get_twopi_index();
-    unsigned int stride = (twoPI >> 1) / m_fftSize;
+    std::size_t twoPI = trig.get_twopi_index();
+    std::size_t stride = (twoPI >> 1) / m_fftSize;
     assert(stride > 0);
     for (unsigned int i = 0; i < m_fftSize; ++i)
     {

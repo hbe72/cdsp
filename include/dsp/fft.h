@@ -197,14 +197,14 @@ static void real_fft_postprocess(complex_vector<T>& out)
     unsigned int N = static_cast<unsigned int>(out.size());
     unsigned int S = static_cast<unsigned int>(std::log2(N));
     cdsp::trig<T>& exp = cdsp::trig<T>::instance();
-    unsigned int stride = exp.get_twopi_index() >> (S + 1);
+    std::size_t stride = (exp.get_twopi_index()) >> (S + 1);
 
     // out[N] equals to out[0], so, let's add it
     out.push_back(out[0]);
 
     // Process the first and last index
-    unsigned int k = 0;
-    unsigned int r = N;
+    std::size_t k = 0;
+    std::size_t r = N;
     complex<T> xPlus(cdsp::math::arithmetic_right_shift(out[k].real() + out[r].real(), 1),
                      cdsp::math::arithmetic_right_shift(out[k].imag() + out[r].imag(), 1));
     complex<T> xMinus(cdsp::math::arithmetic_right_shift(out[k].real() - out[r].real(), 1),
