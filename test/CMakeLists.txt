@@ -16,7 +16,7 @@ ExternalProject_Add(
         URL_MD5 "06ac495303fbe94b198026e3c196425e"
         UPDATE_COMMAND ""
         INSTALL_COMMAND ""
-        CMAKE_ARGS -Dgtest_force_shared_crt=ON
+        CMAKE_ARGS -Dgtest_force_shared_crt=ON -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
 )
 
 ######################################################################
