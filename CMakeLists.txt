@@ -13,7 +13,7 @@ ExternalProject_Add(
         GIT_SHALLOW 1
         GIT_PROGRESS 1
         UPDATE_COMMAND ""
-        CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${Cnl_DESTDIR}"
+        CMAKE_ARGS -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_INSTALL_PREFIX=${Cnl_DESTDIR}
 )
 
 # runs a suite of compile-time tests using `static_assert`

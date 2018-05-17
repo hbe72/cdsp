@@ -11,73 +11,77 @@ matrix:
   - os: osx
 
   include:
-
     # Linux C++14
     - os: linux
       addons: &gcc7
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - g++-7
-      env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" BUILD_TYPE=Debug STD=14 EXCEPTIONS=ON INT128=OFF
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" BUILD_TYPE=Debug STD=14 EXCEPTIONS=OFF INT128=OFF
 
-#    - os: linux
-#      addons: *gcc6
-#      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release STD=14 EXCEPTIONS=ON INT128=ON
-#
-#    - os: linux
-#      addons: *gcc5
-#      env: MATRIX_EVAL="CC=gcc-5 && CXX=g++-5" BUILD_TYPE=Debug STD=14 EXCEPTIONS=OFF INT128=ON
-#
-#    - os: linux
-#      addons: *clang5
-#      env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0" BUILD_TYPE=Release STD=14 EXCEPTIONS=ON INT128=ON
-#
-#    - os: linux
-#      addons: *clang4
-#      env: MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0" BUILD_TYPE=Debug STD=14 EXCEPTIONS=ON INT128=ON
+    - os: linux
+      addons: &gcc6
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release STD=14 EXCEPTIONS=ON INT128=ON
+
+    - os: linux
+      addons: &gcc5
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+      env: MATRIX_EVAL="CC=gcc-5 && CXX=g++-5" BUILD_TYPE=Debug STD=14 EXCEPTIONS=OFF INT128=ON
+
+    - os: linux
+      addons: &clang5
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang-5.0
+      env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0" BUILD_TYPE=Release STD=14 EXCEPTIONS=ON INT128=ON
+
+    - os: linux
+      addons: &clang4
+        apt:
+          sources:
+            - llvm-toolchain-trusty-4.0
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang-4.0
+      env: MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0" BUILD_TYPE=Debug STD=14 EXCEPTIONS=ON INT128=ON
 
     # Linux C++17
-#    - os: linux
-#      addons: *gcc7
-#      env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" BUILD_TYPE=Release STD=17 EXCEPTIONS=ON INT128=ON
-#
-#    - os: linux
-#      addons: *gcc6
-#      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Debug STD=17 EXCEPTIONS=ON INT128=ON
-#
-#    - os: linux
-#      addons: *gcc5
-#      env: MATRIX_EVAL="CC=gcc-5 && CXX=g++-5" BUILD_TYPE=Release STD=17 EXCEPTIONS=OFF INT128=ON
-#
-#    - os: linux
-#      addons: *clang5
-#      env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0" BUILD_TYPE=Debug STD=17 EXCEPTIONS=OFF INT128=ON
-#
-#    - os: linux
-#      addons: *clang4
-#      env: MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0" BUILD_TYPE=Release STD=17 EXCEPTIONS=OFF INT128=ON
+    - os: linux
+      addons: *gcc7
+      env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7" BUILD_TYPE=Release STD=17 EXCEPTIONS=ON INT128=ON
+
+    - os: linux
+      addons: *gcc6
+      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Debug STD=17 EXCEPTIONS=ON INT128=ON
 
     #OSX C++14
-#    - os: osx
-#      osx_image: xcode9.3
-#      env: MATRIX_EVAL="brew update && brew install gcc6 && CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release STD=14 EXCEPTIONS=ON INT128=ON
-
     - os: osx
       osx_image: xcode9.3
       compiler: clang #Apple LLVM version 9.1.0
-      env: MATRIX_EVAL="" BUILD_TYPE=Release STD=14 EXCEPTIONS=ON INT128=ON
+      env: MATRIX_EVAL="" BUILD_TYPE=Release STD=14 EXCEPTIONS=OFF INT128=ON
 
     #OSX C++17
-#    - os: osx
-#      osx_image: xcode9.3
-#      env: MATRIX_EVAL="brew update && brew install gcc6 && CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release STD=17 EXCEPTIONS=ON INT128=ON
+    - os: osx
+      osx_image: xcode8
+      env: MATRIX_EVAL="brew update && brew install gcc@7 && CC=gcc-7 && CXX=g++-7" BUILD_TYPE=Release STD=17 EXCEPTIONS=OFF INT128=ON
 
-#    - os: osx
-#      osx_image: xcode9.3
-#      compiler: clang #Apple LLVM version 9.1.0
-#      env: MATRIX_EVAL="" BUILD_TYPE=Release STD=17 EXCEPTIONS=ON INT128=ON
+    - os: osx
+      osx_image: xcode8
+      env: MATRIX_EVAL="brew update && brew install gcc@7 && CC=gcc-7 && CXX=g++-7" BUILD_TYPE=Release STD=17 EXCEPTIONS=OFF INT128=OFF
 
 before_install:
   - eval "${MATRIX_EVAL}"
