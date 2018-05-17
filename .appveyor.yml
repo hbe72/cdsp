@@ -17,7 +17,7 @@ build_script:
 - cmd: >-
     cmake -DCMAKE_BUILD_TYPE=%configuration% -G "%cmake_generator%" .
 
-    cmake --build . --target src/test/Tests -- /property:Configuration=%configuration% /property:Platform=%msbuild_property%
+    cmake --build . --target test/Tests -- /property:Configuration=%configuration% /property:Platform=%msbuild_property%
 test_script:
 - cmd: >-
     ctest
