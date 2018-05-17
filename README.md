@@ -1,5 +1,5 @@
 # CDSP - Compositional DSP Library for C++
-| develop @ Travis-CI (macOS & Linux)| develop @ Appveyor (Windows) |
+| develop @ Travis-CI <br/> (macOS & Linux)| develop @ Appveyor <br/> (Windows) |
 | ------------- | ------------- |
 | [![Build Status](https://travis-ci.org/hbe72/cdsp.svg?branch=develop)](https://travis-ci.org/hbe72/cdsp) | [![Build status](https://ci.appveyor.com/api/projects/status/1q4y3h8vy8t1kn5e/branch/develop?svg=true)](https://ci.appveyor.com/project/hbe72/cdsp/branch/develop)|
 
