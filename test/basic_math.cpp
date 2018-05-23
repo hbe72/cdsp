@@ -62,7 +62,7 @@ TEST(basic_math, div)
 template<class Rep = int, int Exponent = 0, class RoundingTag = cnl::nearest_rounding_tag>
 using rounding_fixed_point = cnl::fixed_point<cnl::rounding_integer<Rep, RoundingTag>, Exponent>;
 
-TEST(basic_math, round)
+TEST(basic_math, rounding_fixed_point)
 {
 
     using q28_4 = rounding_fixed_point<std::int32_t, -4>;
@@ -70,6 +70,31 @@ TEST(basic_math, round)
 
     q28_4 a(0.4375);
     q31_1 b = a;
+    EXPECT_EQ(a, 0.4375);
+    EXPECT_EQ(b, 0.5);
+}
+
+template<
+    int IntegerDigits,
+    class RoundingTag = cnl::nearest_rounding_tag,
+    class Narrowest = int>
+using rounding_elastic_integer = cnl::rounding_integer<
+    cnl::elastic_integer<
+        IntegerDigits,
+        Narrowest>,
+    RoundingTag>;
+
+template<int Digits, int Exponent = 0, class Narrowest = signed>
+using rounding_elastic_number = cnl::fixed_point<rounding_elastic_integer<Digits, Narrowest>, Exponent>;
+
+TEST(basic_math, rounding_elastic_number)
+{
+    
+    using q4_4 = rounding_elastic_number<8, -4>;
+    using q4_1 = rounding_elastic_number<4, -1>;
+    
+    q4_4 a(0.4375);
+    q4_1 b = a;
     EXPECT_EQ(a, 0.4375);
     EXPECT_EQ(b, 0.5);
 }
