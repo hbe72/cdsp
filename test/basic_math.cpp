@@ -65,11 +65,11 @@ using rounding_fixed_point = cnl::fixed_point<cnl::rounding_integer<Rep, Roundin
 TEST(basic_math, round)
 {
 
-    using q4_4 = rounding_fixed_point<std::int32_t, -4>;
-    using q4_1 = rounding_fixed_point<std::int32_t, -1>;
+    using q28_4 = rounding_fixed_point<std::int32_t, -4>;
+    using q31_1 = rounding_fixed_point<std::int32_t, -1>;
 
-    q4_4 a(0.4375);
-    q4_1 b = a;
+    q28_4 a(0.4375);
+    q31_1 b = a;
     EXPECT_EQ(a, 0.4375);
     EXPECT_EQ(b, 0.5);
 }
