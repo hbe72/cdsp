@@ -84,8 +84,8 @@ using rounding_elastic_integer = cnl::rounding_integer<
         Narrowest>,
     RoundingTag>;
 
-template<int Digits, int Exponent = 0, class Narrowest = signed>
-using rounding_elastic_number = cnl::fixed_point<rounding_elastic_integer<Digits, Narrowest>, Exponent>;
+template<int Digits, int Exponent = 0, class RoundingTag = cnl::nearest_rounding_tag, class Narrowest = signed>
+using rounding_elastic_number = cnl::fixed_point<rounding_elastic_integer<Digits, RoundingTag, Narrowest>, Exponent>;
 
 TEST(basic_math, rounding_elastic_number)
 {
