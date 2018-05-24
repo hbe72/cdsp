@@ -50,14 +50,15 @@ endfunction(add_gtest_dependency)
 # DSP tests
 set(sample_cdsp_sources
         basic_math.cpp
-        biquad.cpp
-        biquad_cascade.cpp
-        complex.cpp
-        complex_vector.cpp
-        fft.cpp
-        stft.cpp
-        trig.cpp
-        virtual_float.cpp)
+        #biquad.cpp
+        #biquad_cascade.cpp
+        #complex.cpp
+        #complex_vector.cpp
+        #fft.cpp
+        #stft.cpp
+        #trig.cpp
+        #virtual_float.cpp
+        )
 
 include(CTest)
 add_custom_target(Tests)

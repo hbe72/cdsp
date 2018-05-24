@@ -52,8 +52,8 @@ TEST(basic_math, div)
 
     q4_20 a(1.0);
     q4_20 b(2.0);
-    q4_20 c1 = cnl::make_fixed_point(cnl::make_fractional(b,a));
-    q4_20 c2 = cnl::make_fixed_point(cnl::make_fractional(a,b));
+    q4_20 c1 = cdsp::math::divides<q4_20,q4_20>()(b,a);
+    q4_20 c2 = cdsp::math::divides<q4_20,q4_20>()(a,b);
 
     EXPECT_EQ(static_cast<float>(c1), 2.0);
     EXPECT_EQ(static_cast<float>(c2), 0.5);

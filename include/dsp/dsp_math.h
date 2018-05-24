@@ -86,6 +86,7 @@ template <>
 inline q4_20 divides<q4_20,q4_20>::operator()(const q4_20& a, const q4_20& b) const
 {
     return static_cast<q4_20>(cnl::make_fixed_point(cnl::make_fractional(a, b)));
+    //return cnl::divide<cnl::nearest_rounding_tag,q4_20,q4_20>()(a,b);
 }
 
 #if defined(CNL_INT128_ENABLED)
