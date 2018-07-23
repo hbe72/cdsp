@@ -7,6 +7,8 @@
 #include <dsp/dsp_types.h>
 #include <dsp/dsp_math.h>
 
+namespace {
+
 TEST(basic_math, floor)
 {
     std::vector<float> nbrs {
@@ -42,10 +44,7 @@ TEST(basic_math, floor)
             << "index: " << index << std::endl;
         }
     }
-
-
 }
-
 
 TEST(basic_math, div)
 {
@@ -97,4 +96,44 @@ TEST(basic_math, rounding_elastic_number)
     q4_1 b = a;
     EXPECT_EQ(a, 0.4375);
     EXPECT_EQ(b, 0.5);
+}
+
+/// Same as above but as compile time test
+namespace test_rounding_elastic_number
+{
+    static constexpr auto a = rounding_elastic_number<8, -4>{0.4375};
+    static constexpr auto b = static_cast<rounding_elastic_number<4, -1>>(a);
+    static_assert(identical(rounding_elastic_number<4, -1>{0.5}, b),
+              "rounding_elastic_number");
+    static_assert(identical(rounding_elastic_integer<8>{7}, cnl::to_rep(a)),
+              "rounding_elastic_number");
+    static_assert(identical(rounding_elastic_integer<4>{1}, cnl::to_rep(b)),
+              "rounding_elastic_number");
+}
+
+namespace test_rounding_should_stay_under_64_bits
+{
+    static constexpr auto c = static_cast<rounding_elastic_number<24, -20>>
+        (rounding_elastic_number<48, -40>{0.21875});
+    static_assert(identical(rounding_elastic_number<24, -20>{0.21875}, c),
+                  "rounding_elastic_number assignment");
+}
+
+namespace test_rounding_from_elastic_number
+{
+    static constexpr auto a = cnl::elastic_number<8, -4>{0.4375};
+    static constexpr auto b = static_cast<rounding_elastic_number<4, -1>>(a);
+    static constexpr auto c = static_cast<cnl::elastic_number<4, -1>>(a);
+    static_assert(identical(rounding_elastic_number<4, -1>{0.5}, b),
+                  "conversion from elastic number to smaller rounding elastic number");
+    static_assert(identical(cnl::elastic_number<4, -1>{0.0}, c),
+                  "conversion from elastic number to smaller elastic number");
+    static_assert(identical(cnl::elastic_integer<8>{7}, cnl::to_rep(a)),
+                  "conversion from elastic number to smaller rounding elastic number, checking the underlying value");
+    static_assert(identical(rounding_elastic_integer<4>{1}, cnl::to_rep(b)),
+                  "conversion from elastic number to rounding elastic number, checking the underlying value");
+    static_assert(identical(cnl::elastic_integer<4>{0}, cnl::to_rep(c)),
+                  "conversion from elastic number to smaller elastic number, checking underlying value");
+}
+
 }

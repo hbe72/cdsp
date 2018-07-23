@@ -1,5 +1,18 @@
 include("../cmake/common.cmake")
 
+# DSP tests
+set(sample_cdsp_sources
+        basic_math.cpp
+        biquad.cpp
+        biquad_cascade.cpp
+        complex.cpp
+        complex_vector.cpp
+        fft.cpp
+        stft.cpp
+        trig.cpp
+        virtual_float.cpp
+        )
+
 ######################################################################
 # add_cnl_dependency
 function(add_cnl_dependency target)
@@ -46,20 +59,6 @@ function(add_gtest_dependency target)
     add_dependencies("${target}" GoogleTest)
 endfunction(add_gtest_dependency)
 
-
-# DSP tests
-set(sample_cdsp_sources
-        basic_math.cpp
-        #biquad.cpp
-        #biquad_cascade.cpp
-        #complex.cpp
-        #complex_vector.cpp
-        #fft.cpp
-        #stft.cpp
-        #trig.cpp
-        #virtual_float.cpp
-        )
-
 include(CTest)
 add_custom_target(Tests)
 
@@ -68,6 +67,7 @@ foreach(source ${sample_cdsp_sources})
     string(REPLACE "/" "-" target "Test-${stripped}")
     add_executable(${target} ${source})
     add_test("${target}" "${target}")
+    set_target_properties("${target}" PROPERTIES COMPILE_FLAGS "${COMMON_CXX_FLAGS}")
 
     add_gtest_dependency("${target}")
     add_cnl_dependency("${target}")

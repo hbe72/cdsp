@@ -5,7 +5,7 @@
 #if !defined(CDSP_TYPES)
 #define CDSP_TYPES
 
-#include <cnl.h>
+#include <cnl/all.h>
 
 namespace cdsp
 {
@@ -21,15 +21,12 @@ using rounding_elastic_integer = cnl::rounding_integer<
 
 template<int Digits, int Exponent = 0, class RoundingTag = cnl::nearest_rounding_tag, class Narrowest = signed>
 using rounding_elastic_number = cnl::fixed_point<rounding_elastic_integer<Digits, RoundingTag, Narrowest>, Exponent>;
-
-
-// Elastic fixed point types equivalent to Cirrus ADSP2
 }
 
+// Elastic fixed point types equivalent to Cirrus ADSP2
 typedef cdsp::rounding_elastic_number<24, -20> q4_20;
 typedef cdsp::rounding_elastic_number<48, -40> q8_40;
 //typedef cnl::elastic_number<24, -20> q4_20;
 //typedef cnl::elastic_number<48, -40> q8_40;
-
 
 #endif //CDSP_TYPES

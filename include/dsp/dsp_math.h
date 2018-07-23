@@ -86,7 +86,6 @@ template <>
 inline q4_20 divides<q4_20,q4_20>::operator()(const q4_20& a, const q4_20& b) const
 {
     return static_cast<q4_20>(cnl::make_fixed_point(cnl::make_fractional(a, b)));
-    //return cnl::divide<cnl::nearest_rounding_tag,q4_20,q4_20>()(a,b);
 }
 
 #if defined(CNL_INT128_ENABLED)
@@ -124,7 +123,7 @@ T floor(const T a)
 template<class Rep, int Exponent>
 inline cnl::fixed_point<Rep, Exponent> floor(const cnl::fixed_point<Rep, Exponent>& x)
 {
-    return cnl::fixed_point<Rep, Exponent>((cnl::to_rep(x)) >> -Exponent);
+    return cnl::floor(x);
 }
 
 template<typename T>
