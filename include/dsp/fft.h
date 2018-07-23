@@ -213,7 +213,7 @@ static void real_fft_postprocess(complex_vector<T>& out)
     complex<T> x2(xPlus.imag(), xMinus.real());
 
     complex<T> xa = x1 + conj(exp[k * stride] * x2);
-    complex<T> xb(out[k].real() - out[k].imag(), T(0));
+    complex<T> xb(out[k].real() - out[k].imag(), T(0.));
     out.set_at(k, xa);
     out.set_at(r, xb);
 

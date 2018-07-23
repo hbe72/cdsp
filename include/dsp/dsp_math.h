@@ -123,7 +123,7 @@ T floor(const T a)
 template<class Rep, int Exponent>
 inline cnl::fixed_point<Rep, Exponent> floor(const cnl::fixed_point<Rep, Exponent>& x)
 {
-    return cnl::fixed_point<Rep, Exponent>((cnl::to_rep(x)) >> -Exponent);
+    return cnl::floor(x);
 }
 
 template<typename T>

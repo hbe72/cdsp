@@ -83,7 +83,7 @@ public:
     /// Returns the size of vector
     std::size_t size() const;
     /// resizes the vector
-    void resize(std::size_t size, complex<T> init = complex<T>(0, 0));
+    void resize(std::size_t size, complex<T> init = complex<T>(0., 0.));
     /// reserves space for the vector
     void reserve(std::size_t size);
     /// Pushes value back to the vector
