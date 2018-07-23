@@ -5,20 +5,19 @@ include("cmake/common.cmake")
 set(Cnl_DESTDIR ${CMAKE_BINARY_DIR}/install)
 file(MAKE_DIRECTORY ${Cnl_DESTDIR})
 
-message("CXX COMPILER = ${CMAKE_CXX_COMPILER}")
-message("C COMPILER = ${CMAKE_C_COMPILER}")
-message("INT128 = ${INT128}")
-message("STD = ${STD}")
-message("EXCEPTIONS = ${EXCEPTIONS}")
+message("-- CXX COMPILER = ${CMAKE_CXX_COMPILER}")
+message("-- C COMPILER = ${CMAKE_C_COMPILER}")
+message("-- INT128 = ${INT128}")
+message("-- STD = ${STD}")
+message("-- EXCEPTIONS = ${EXCEPTIONS}")
 
 ExternalProject_Add(
         Cnl
         PREFIX ${CMAKE_BINARY_DIR}/Cnl
-        GIT_REPOSITORY "https://github.com/hbe72/cnl.git"
-        GIT_TAG "develop"
+        GIT_REPOSITORY "https://github.com/johnmcfarlane/cnl.git"
+        GIT_TAG "d5ae23f62075c74cd453723819ff6e2174ff83cb"
         GIT_SHALLOW 1
         GIT_PROGRESS 1
-        UPDATE_COMMAND ""
         CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_INSTALL_PREFIX=${Cnl_DESTDIR} -DINT128=${INT128} -DSTD=${STD} -DEXCEPTIONS=${EXCEPTIONS}
 )
 
