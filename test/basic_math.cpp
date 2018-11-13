@@ -7,7 +7,10 @@
 #include <dsp/dsp_types.h>
 #include <dsp/dsp_math.h>
 
-namespace {
+#include <cnl/_impl/type_traits/assert_same.h>
+#include <cnl/_impl/type_traits/identical.h>
+using cnl::_impl::assert_same;
+using cnl::_impl::identical;
 
 TEST(basic_math, floor)
 {
@@ -128,6 +131,4 @@ namespace test_convert_nearest_rounding_fixed_point
     static constexpr auto c = cnl::convert<cnl::nearest_rounding_tag, cnl::fixed_point<int, -2>, cnl::fixed_point<int, -4>>{}(a);
     static_assert(identical(cnl::fixed_point<int, -2>{0.25}, c),
               "cnl::convert<nearest_rounding_tag, fixed_point, fixed_point>");
-}
-
 }
