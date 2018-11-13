@@ -10,11 +10,11 @@
 
 #include <gtest/gtest.h>
 
-#include "dsp/complex.h"
-#include "dsp/complex_vector.h"
-#include "dsp/fft.h"
-#include "dsp/dsp_types.h"
-#include "dsp/dsp_math.h"
+#include "cdsp/complex.h"
+#include "cdsp/complex_vector.h"
+#include "cdsp/fft.h"
+#include "cdsp/dsp_types.h"
+#include "cdsp/dsp_math.h"
 
 #define FFT_DOUBLE_ACCURACY 0.00000000001
 #define FFT_Q4_20_ACCURACY 0.00001

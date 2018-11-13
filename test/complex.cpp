@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 #include <gtest/gtest.h>
 
-#include <dsp/dsp_types.h>
-#include <dsp/complex.h>
+#include <cdsp/dsp_types.h>
+#include <cdsp/complex.h>
 
 TEST(complex, basic)
 {

@@ -68,7 +68,7 @@ git clone https://github.com/hbe72/cdsp.git
     ```
     mkdir build
     cd build
-    cmake /some/directory/cdsp -DCMAKE_INSTALL_PREFIX=/directory/to/install 
+    cmake /some/directory/cdsp -DCMAKE_INSTALL_PREFIX=/directory/to/install -DCMAKE_BUILD_TYPE=Release
     ```     
     
 2. Build tests:

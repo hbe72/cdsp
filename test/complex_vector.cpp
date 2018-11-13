@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 #include <gtest/gtest.h>
 
-#include <dsp/dsp_types.h>
-#include <dsp/complex.h>
-#include <dsp/complex_vector.h>
-#include <dsp/virtual_float.h>
+#include <cdsp/dsp_types.h>
+#include <cdsp/complex.h>
+#include <cdsp/complex_vector.h>
+#include <cdsp/virtual_float.h>
 
 
 TEST(complex_vector, vector)
