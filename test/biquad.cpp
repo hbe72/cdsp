@@ -3,8 +3,8 @@
 //  (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 #include <gtest/gtest.h>
-#include "dsp/dsp_types.h"
-#include "dsp/biquad.h"
+#include "cdsp/dsp_types.h"
+#include "cdsp/biquad.h"
 
 static constexpr double biquad_double_accuracy = 0.0000001;
 static constexpr double biquad_fix_accuracy = 0.00001;

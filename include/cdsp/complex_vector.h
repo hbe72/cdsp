@@ -10,10 +10,10 @@
 #include <limits>
 #include <vector>
 
-#include <dsp/complex.h>
-#include <dsp/virtual_float.h>
-#include <dsp/dsp_math.h>
-#include <dsp/trig.h>
+#include "complex.h"
+#include "virtual_float.h"
+#include "dsp_math.h"
+#include "trig.h"
 
 namespace cdsp
 {

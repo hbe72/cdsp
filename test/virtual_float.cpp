@@ -6,9 +6,9 @@
 
 #include <gtest/gtest.h>
 
-#include <dsp/complex.h>
-#include <dsp/dsp_types.h>
-#include <dsp/virtual_float.h>
+#include <cdsp/complex.h>
+#include <cdsp/dsp_types.h>
+#include <cdsp/virtual_float.h>
 
 TEST(virtual_float, creation)
 {

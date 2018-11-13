@@ -5,9 +5,9 @@
 #include <vector>
 #include <gtest/gtest.h>
 
-#include "dsp/dsp_types.h"
-#include "dsp/dsp_math.h"
-#include "dsp/trig.h"
+#include "cdsp/dsp_types.h"
+#include "cdsp/dsp_math.h"
+#include "cdsp/trig.h"
 
 static constexpr double trig_accuracy = 1e-15;
 static constexpr double trig_interpolation_accuracy = 1e-7;

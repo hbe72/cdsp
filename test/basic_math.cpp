@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 #include <gtest/gtest.h>
 
-#include <dsp/dsp_types.h>
-#include <dsp/dsp_math.h>
+#include <cdsp/dsp_types.h>
+#include <cdsp/dsp_math.h>
 
 #include <cnl/_impl/type_traits/assert_same.h>
 #include <cnl/_impl/type_traits/identical.h>

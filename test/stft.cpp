@@ -10,11 +10,11 @@
 
 #include <gtest/gtest.h>
 
-#include "dsp/dsp_types.h"
-#include "dsp/dsp_math.h"
+#include "cdsp/dsp_types.h"
+#include "cdsp/dsp_math.h"
 
-#include "dsp/complex_vector.h"
-#include "dsp/stft.h"
+#include "cdsp/complex_vector.h"
+#include "cdsp/stft.h"
 
 #define STFT_DOUBLE_ACCURACY 0.00000000001
 #define STFT_Q4_20_ACCURACY 0.0006

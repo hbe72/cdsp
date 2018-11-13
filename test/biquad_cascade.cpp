@@ -8,8 +8,8 @@
 
 #include <gtest/gtest.h>
 
-#include <dsp/dsp_types.h>
-#include <dsp/biquad_cascade.h>
+#include <cdsp/dsp_types.h>
+#include <cdsp/biquad_cascade.h>
 
 static const double biquad_double_accuracy = 0.0000001;
 static const double biquad_fix_accuracy = 0.00001;
