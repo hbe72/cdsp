@@ -85,20 +85,20 @@ inline T1 divides<T1, T2>::operator()(const T1& a, const T2& b) const
 template <>
 inline q4_20 divides<q4_20,q4_20>::operator()(const q4_20& a, const q4_20& b) const
 {
-    return static_cast<q4_20>(cnl::make_fixed_point(cnl::make_fractional(a, b)));
+    return static_cast<q4_20>(cnl::make_fixed_point(cnl::make_fraction(a, b)));
 }
 
 #if defined(CNL_INT128_ENABLED)
 template <>
 inline q8_40 divides<q8_40,q8_40>::operator()(const q8_40& a, const q8_40& b) const
 {
-    return static_cast<q8_40>(cnl::make_fixed_point(cnl::make_fractional(a, b)));
+    return static_cast<q8_40>(cnl::make_fixed_point(cnl::make_fraction(a, b)));
 }
 
 template <>
 inline q8_40 divides<q8_40,q4_20>::operator()(const q8_40& a, const q4_20& b) const
 {
-    return static_cast<q8_40>(cnl::make_fixed_point(cnl::make_fractional(a, b)));
+    return static_cast<q8_40>(cnl::make_fixed_point(cnl::make_fraction(a, b)));
 }
 #endif
 

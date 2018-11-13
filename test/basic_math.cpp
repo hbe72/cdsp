@@ -7,7 +7,10 @@
 #include <dsp/dsp_types.h>
 #include <dsp/dsp_math.h>
 
-namespace {
+#include <cnl/_impl/type_traits/assert_same.h>
+#include <cnl/_impl/type_traits/identical.h>
+using cnl::_impl::assert_same;
+using cnl::_impl::identical;
 
 TEST(basic_math, floor)
 {
@@ -73,24 +76,11 @@ TEST(basic_math, rounding_fixed_point)
     EXPECT_EQ(b, 0.5);
 }
 
-template<
-    int IntegerDigits,
-    class RoundingTag = cnl::nearest_rounding_tag,
-    class Narrowest = int>
-using rounding_elastic_integer = cnl::rounding_integer<
-    cnl::elastic_integer<
-        IntegerDigits,
-        Narrowest>,
-    RoundingTag>;
-
-template<int Digits, int Exponent = 0, class RoundingTag = cnl::nearest_rounding_tag, class Narrowest = signed>
-using rounding_elastic_number = cnl::fixed_point<rounding_elastic_integer<Digits, RoundingTag, Narrowest>, Exponent>;
-
 TEST(basic_math, rounding_elastic_number)
 {
     
-    using q4_4 = rounding_elastic_number<8, -4>;
-    using q4_1 = rounding_elastic_number<4, -1>;
+    using q4_4 = cdsp::rounding_elastic_number<8, -4>;
+    using q4_1 = cdsp::rounding_elastic_number<4, -1>;
     
     q4_4 a(0.4375);
     q4_1 b = a;
@@ -101,39 +91,44 @@ TEST(basic_math, rounding_elastic_number)
 /// Same as above but as compile time test
 namespace test_rounding_elastic_number
 {
-    static constexpr auto a = rounding_elastic_number<8, -4>{0.4375};
-    static constexpr auto b = static_cast<rounding_elastic_number<4, -1>>(a);
-    static_assert(identical(rounding_elastic_number<4, -1>{0.5}, b),
+    static constexpr auto a = cdsp::rounding_elastic_number<8, -4>{0.4375};
+    static constexpr auto b = static_cast<cdsp::rounding_elastic_number<4, -1>>(a);
+    static_assert(identical(cdsp::rounding_elastic_number<4, -1>{0.5}, b),
               "rounding_elastic_number");
-    static_assert(identical(rounding_elastic_integer<8>{7}, cnl::to_rep(a)),
+    static_assert(identical(cdsp::rounding_elastic_integer<8>{7}, to_rep(a)),
               "rounding_elastic_number");
-    static_assert(identical(rounding_elastic_integer<4>{1}, cnl::to_rep(b)),
+    static_assert(identical(cdsp::rounding_elastic_integer<4>{1}, to_rep(b)),
               "rounding_elastic_number");
 }
 
 namespace test_rounding_should_stay_under_64_bits
 {
-    static constexpr auto c = static_cast<rounding_elastic_number<24, -20>>
-        (rounding_elastic_number<48, -40>{0.21875});
-    static_assert(identical(rounding_elastic_number<24, -20>{0.21875}, c),
+    static constexpr auto c = static_cast<cdsp::rounding_elastic_number<24, -20>>
+        (cdsp::rounding_elastic_number<48, -40>{0.21875});
+    static_assert(identical(cdsp::rounding_elastic_number<24, -20>{0.21875}, c),
                   "rounding_elastic_number assignment");
 }
 
-namespace test_rounding_from_elastic_number
+namespace test_convert_nearest_rounding_elastic_number
 {
-    static constexpr auto a = cnl::elastic_number<8, -4>{0.4375};
-    static constexpr auto b = static_cast<rounding_elastic_number<4, -1>>(a);
-    static constexpr auto c = static_cast<cnl::elastic_number<4, -1>>(a);
-    static_assert(identical(rounding_elastic_number<4, -1>{0.5}, b),
-                  "conversion from elastic number to smaller rounding elastic number");
-    static_assert(identical(cnl::elastic_number<4, -1>{0.0}, c),
-                  "conversion from elastic number to smaller elastic number");
-    static_assert(identical(cnl::elastic_integer<8>{7}, cnl::to_rep(a)),
-                  "conversion from elastic number to smaller rounding elastic number, checking the underlying value");
-    static_assert(identical(rounding_elastic_integer<4>{1}, cnl::to_rep(b)),
-                  "conversion from elastic number to rounding elastic number, checking the underlying value");
-    static_assert(identical(cnl::elastic_integer<4>{0}, cnl::to_rep(c)),
-                  "conversion from elastic number to smaller elastic number, checking underlying value");
+    static constexpr auto a = cnl::elastic_number<8, -4>{0.3125};
+    static constexpr auto b = cnl::convert<cnl::nearest_rounding_tag, cnl::elastic_number<4, -1>, cnl::elastic_number<8, -4>>{}(a);
+    static_assert(identical(cnl::elastic_number<4, -1>{0.5}, b),
+              "cnl::convert<nearest_rounding_tag, elastic_number, elastic_number>");
+
+    static constexpr auto c = cnl::convert<cnl::nearest_rounding_tag, cnl::elastic_number<4, -2>, cnl::elastic_number<8, -4>>{}(a);
+    static_assert(identical(cnl::elastic_number<4, -2>{0.25}, c),
+              "cnl::convert<nearest_rounding_tag, elastic_number, elastic_number>");
 }
 
+namespace test_convert_nearest_rounding_fixed_point
+{
+    static constexpr auto a = cnl::fixed_point<int, -4>{0.3125};
+    static constexpr auto b = cnl::convert<cnl::nearest_rounding_tag, cnl::fixed_point<int, -1>, cnl::fixed_point<int, -4>>{}(a);
+    static_assert(identical(cnl::fixed_point<int, -1>{0.5}, b),
+              "cnl::convert<nearest_rounding_tag, fixed_point, fixed_point>");
+
+    static constexpr auto c = cnl::convert<cnl::nearest_rounding_tag, cnl::fixed_point<int, -2>, cnl::fixed_point<int, -4>>{}(a);
+    static_assert(identical(cnl::fixed_point<int, -2>{0.25}, c),
+              "cnl::convert<nearest_rounding_tag, fixed_point, fixed_point>");
 }
