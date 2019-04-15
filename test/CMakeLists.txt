@@ -25,8 +25,8 @@ endfunction(add_cnl_dependency)
 ExternalProject_Add(
         GoogleTest
         PREFIX ${CMAKE_BINARY_DIR}/GoogleTest
-        URL "https://github.com/google/googletest/archive/3a4cf1a02ef4adc28fccb7eef2b573b14cd59009.zip"
-        URL_MD5 "06ac495303fbe94b198026e3c196425e"
+        GIT_REPOSITORY "https://github.com/google/googletest.git"
+        GIT_TAG "39f72ea6f5cd458860b563d7bcb7ea67546e6ea3"
         UPDATE_COMMAND ""
         INSTALL_COMMAND ""
         CMAKE_ARGS -Dgtest_force_shared_crt=ON -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
@@ -39,16 +39,16 @@ function(add_gtest_dependency target)
     ExternalProject_Get_Property(GoogleTest binary_dir)
     if (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
         target_link_libraries("${target}"
-                debug ${binary_dir}/googlemock/gtest/Debug/${CMAKE_FIND_LIBRARY_PREFIXES}gtestd${CMAKE_FIND_LIBRARY_SUFFIXES}
-                debug ${binary_dir}/googlemock/gtest/Debug/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_maind${CMAKE_FIND_LIBRARY_SUFFIXES}
-                optimized ${binary_dir}/googlemock/gtest/Release/${CMAKE_FIND_LIBRARY_PREFIXES}gtest${CMAKE_FIND_LIBRARY_SUFFIXES}
-                optimized ${binary_dir}/googlemock/gtest/Release/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main${CMAKE_FIND_LIBRARY_SUFFIXES}
+                debug ${binary_dir}/lib/Debug/${CMAKE_FIND_LIBRARY_PREFIXES}gtestd${CMAKE_FIND_LIBRARY_SUFFIXES}
+                debug ${binary_dir}/lib/Debug/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_maind${CMAKE_FIND_LIBRARY_SUFFIXES}
+                optimized ${binary_dir}/lib/Release/${CMAKE_FIND_LIBRARY_PREFIXES}gtest${CMAKE_FIND_LIBRARY_SUFFIXES}
+                optimized ${binary_dir}/lib/Release/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main${CMAKE_FIND_LIBRARY_SUFFIXES}
         )
     else ()
         target_link_libraries(
                 "${target}"
-                general "${binary_dir}/googlemock/gtest/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main.a"
-                general "${binary_dir}/googlemock/gtest/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.a"
+                general "${binary_dir}/lib/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main.a"
+                general "${binary_dir}/lib/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.a"
                 general pthread
         )
     endif ()

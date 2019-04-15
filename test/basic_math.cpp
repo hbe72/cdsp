@@ -112,11 +112,11 @@ namespace test_rounding_should_stay_under_64_bits
 namespace test_convert_nearest_rounding_elastic_number
 {
     static constexpr auto a = cnl::elastic_number<8, -4>{0.3125};
-    static constexpr auto b = cnl::convert<cnl::nearest_rounding_tag, cnl::elastic_number<4, -1>, cnl::elastic_number<8, -4>>{}(a);
+    static constexpr auto b = cnl::convert<cnl::nearest_rounding_tag, cnl::elastic_number<4, -1>>(a);
     static_assert(identical(cnl::elastic_number<4, -1>{0.5}, b),
               "cnl::convert<nearest_rounding_tag, elastic_number, elastic_number>");
 
-    static constexpr auto c = cnl::convert<cnl::nearest_rounding_tag, cnl::elastic_number<4, -2>, cnl::elastic_number<8, -4>>{}(a);
+    static constexpr auto c = cnl::convert<cnl::nearest_rounding_tag, cnl::elastic_number<4, -2>>(a);
     static_assert(identical(cnl::elastic_number<4, -2>{0.25}, c),
               "cnl::convert<nearest_rounding_tag, elastic_number, elastic_number>");
 }
@@ -124,11 +124,11 @@ namespace test_convert_nearest_rounding_elastic_number
 namespace test_convert_nearest_rounding_fixed_point
 {
     static constexpr auto a = cnl::fixed_point<int, -4>{0.3125};
-    static constexpr auto b = cnl::convert<cnl::nearest_rounding_tag, cnl::fixed_point<int, -1>, cnl::fixed_point<int, -4>>{}(a);
+    static constexpr auto b = cnl::convert<cnl::nearest_rounding_tag, cnl::fixed_point<int, -1>>(a);
     static_assert(identical(cnl::fixed_point<int, -1>{0.5}, b),
               "cnl::convert<nearest_rounding_tag, fixed_point, fixed_point>");
 
-    static constexpr auto c = cnl::convert<cnl::nearest_rounding_tag, cnl::fixed_point<int, -2>, cnl::fixed_point<int, -4>>{}(a);
+    static constexpr auto c = cnl::convert<cnl::nearest_rounding_tag, cnl::fixed_point<int, -2>>(a);
     static_assert(identical(cnl::fixed_point<int, -2>{0.25}, c),
               "cnl::convert<nearest_rounding_tag, fixed_point, fixed_point>");
 }
