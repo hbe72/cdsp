@@ -110,7 +110,7 @@ std::size_t trig<T>::get_twopi_index()
 template<class T>
 T trig<T>::sin_turn(T turn)
 {
-    auto mul = static_cast<cnl::elastic_number<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
+    auto mul = static_cast<cnl::elastic_scaled_integer<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
     auto index = static_cast<unsigned int>(cdsp::math::floor(turn * mul));
     T fra = turn * mul - index;
     T lo = sin_at(static_cast<std::size_t>(index));
@@ -123,7 +123,7 @@ T trig<T>::sin_turn(T turn)
 template<class T>
 T trig<T>::cos_turn(T turn)
 {
-    auto mul = static_cast<cnl::elastic_number<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
+    auto mul = static_cast<cnl::elastic_scaled_integer<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
     auto index = static_cast<unsigned int>(cdsp::math::floor(turn * mul));
     T fra = turn * mul - index;
     T lo = cos_at(static_cast<std::size_t>(index));
@@ -136,7 +136,7 @@ T trig<T>::cos_turn(T turn)
 template<class T>
 complex<T> trig<T>::exp_turn(T turn)
 {
-    auto mul = static_cast<cnl::elastic_number<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
+    auto mul = static_cast<cnl::elastic_scaled_integer<TABLE_SIZE_IN_TWOS_POWER+2,0>>(TWOPI_INDEX);
     auto index = static_cast<unsigned int>(cdsp::math::floor(turn * mul));
     T fra = turn * mul - index;
     complex<T> lo = operator[](index);
