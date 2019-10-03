@@ -11,7 +11,7 @@ message("-- INT128 = ${INT128}")
 message("-- STD = ${STD}")
 message("-- EXCEPTIONS = ${EXCEPTIONS}")
 
-set(CNL_GIT_TAG_DEFAULT 6cd6ad26786f767dd75ca7111a98ba83f0e39dff)
+set(CNL_GIT_TAG_DEFAULT 0d2f1ee6dbc28c3f55ebcaa51bde7caa90fcc895)
 set(CNL_GIT_TAG_ENV $ENV{CDSP_CNL_GIT_TAG})
 set(CNL_GIT_TAG "" CACHE BOOL "specify which revision of CNL to use")
 
