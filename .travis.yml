@@ -76,12 +76,9 @@ matrix:
 
     #OSX C++17
     - os: osx
-      osx_image: xcode8
-      env: MATRIX_EVAL="brew update && brew install gcc@6 && CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release STD=17 EXCEPTIONS=OFF INT128=ON
-
-    - os: osx
-      osx_image: xcode8
-      env: MATRIX_EVAL="brew update && brew install gcc@6 && CC=gcc-6 && CXX=g++-6" BUILD_TYPE=Release STD=17 EXCEPTIONS=OFF INT128=OFF
+      osx_image: xcode9.3
+      compiler: clang #Apple LLVM version 9.1.0
+      env: MATRIX_EVAL="" BUILD_TYPE=Release STD=17 EXCEPTIONS=OFF INT128=ON
 
 before_install:
   - eval "${MATRIX_EVAL}"
