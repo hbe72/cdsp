@@ -30,66 +30,69 @@ against native Cirrus ADSP2 implementation. Composing new datatype
 with [CNL](https://github.com/johnmcfarlane/cnl) and specializing the lowest
 level of core CDSP kernels is quite straight forward to support other 
 architectures such as Qualcomm, TI DSPs and other application specific 
-processors.
+processors as well as for ASIC implementation.
 
 ## Requirements 
 
 Requirements are the same as with [CNL](https://github.com/johnmcfarlane/cnl).
-CDSP installs [CNL](https://github.com/johnmcfarlane/cnl) and CDSP side-by-side
-and the only prerequisites are listed below.
+CDSP pulls CNL from it's conan package.
 
 ### Linux
 Requires:
-* GCC 5.1 / Clang 3.5
-* [Cmake](https://cmake.org/) 3.2.2
+* [Cmake](https://cmake.org/) 3.5.1
+* [Conan](https://conan.io/downloads.html)
 
 Optional:
-* [Boost](https://www.boost.org/) - for multiprecision support with [CNL](https://github.com/johnmcfarlane/cnl)
-* [Doxygen](https://www.doxygen.org/) - generates documentation in the doc/gh-pages directory
 
 ### Mac
 See the instructions for Linux. Works similarly. 
-For missing packages please use [Homebrew](https://brew.sh/).
+For missing packages (compilers) please use [Homebrew](https://brew.sh/).
 
 ### Windows
-* MSBuild 15.0 (VS 2017)
-* [Cmake](https://cmake.org/) 3.8.0
+Tested on [AppVeyor](https://ci.appveyor.com/project/hbe72/cdsp)
+and on *Windows 10 Professional* with *CMake 3.8.0*.
 
 ## Instructions
 ### Download
-The library is hosted on [GitHub](https://github.com/hbe72/dsp)
-```
-cd /some/directory
+The library is hosted on [GitHub](https://github.com/hbe72/cdsp)
+```shell
 git clone https://github.com/hbe72/cdsp.git
 ```
 
 ### Build
-1. Generate the build system
-    ```
-    mkdir build
-    cd build
-    cmake /some/directory/cdsp -DCMAKE_INSTALL_PREFIX=/directory/to/install -DCMAKE_BUILD_TYPE=Release
-    ```     
-    
-2. Build tests:
-    * Linux and Mac parallel with 8 cores
-    ```
-    cmake --build . --target Tests -- -j8
-    ```
-    * Windows
-    ```
-    cmake --build . --target test/Tests
-    ```
-3. Run the tests
-    ```
-    ctest
-    ```
-4. Install 
-    
-    If you want to install the CDSP and CNL libraries to location specified by
-    CMAKE_INSTALL_PREFIX. 
-    ```
-    cmake --build . --target install 
-    ```
+Generate the build system and install cdsp
+```shell
+cd cdsp 
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/directory/to/install -DCMAKE_BUILD_TYPE=Release
+cmake --build . --target install
+```     
 
-    By default CDSP and CNL install to /usr/local. 
+### Test    
+1. Conan for essential dependencies:
+   ```shell
+   conan remote add --force johnmcfarlane/cnl https://api.bintray.com/conan/johnmcfarlane/cnl
+   conan profile new --detect --force default
+   conan profile update settings.compiler.libcxx=libstdc++11 default
+   conan install --build=missing ..
+   ```
+
+2. Configure the build with apprpriate toolchain.
+   ```shell
+   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../test/cmake/toolchain/gcc.cmake -DCMAKE_PROJECT_cdsp_INCLUDE:FILEPATH="$(pwd)"/conan_paths.cmake ..
+   ```
+   or
+   ```shell
+   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../test/cmake/toolchain/clang.cmake -DCMAKE_PROJECT_cdsp_INCLUDE:FILEPATH="$(pwd)"/conan_paths.cmake ..
+   ```
+   
+3. Build tests:
+   ```sh
+   cmake --build . --target test-all
+   ```
+
+4. Run tests:
+   ```sh
+   ctest -R test-unit
+   ```

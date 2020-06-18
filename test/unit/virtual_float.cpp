@@ -6,7 +6,6 @@
 
 #include <gtest/gtest.h>
 
-#include <cdsp/complex.h>
 #include <cdsp/dsp_types.h>
 #include <cdsp/virtual_float.h>
 

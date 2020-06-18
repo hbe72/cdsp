@@ -6,6 +6,7 @@
 #define CDSP_VIRTUAL_FLOAT
 
 #include "dsp_types.h"
+#include "dsp_math.h"
 
 namespace cdsp
 {
@@ -176,7 +177,7 @@ virtual_float<T>::operator q4_20() const
 {
     double val = static_cast<double>(m_mantissa) *
                  std::pow(2.0, static_cast<double>(m_exponent));
-    q4_20 ret = val;
+    q4_20 ret{val};
     return ret;
 }
 
@@ -185,33 +186,33 @@ virtual_float<T>::operator q8_40() const
 {
     double val = static_cast<double>(m_mantissa) *
                  std::pow(2.0, static_cast<double>(m_exponent));
-    q8_40 ret = val;
+    q8_40 ret{val};
     return ret;
 }
 
-template<>
-inline virtual_float<q4_20>::operator q4_20() const
-{
-    q4_20 ret = (m_exponent >= 0) ? m_mantissa << m_exponent
-                     : m_mantissa >> (-m_exponent);
-    return ret;
-}
-
-template<>
-inline virtual_float<q8_40>::operator q4_20() const
-{
-    q4_20 ret = (m_exponent >= 0) ? m_mantissa << m_exponent
-                     : m_mantissa >> (-m_exponent);
-    return ret;
-}
-
-template<>
-inline virtual_float<q8_40>::operator q8_40() const
-{
-    q8_40 ret = (m_exponent >= 0) ? m_mantissa << m_exponent
-                     : m_mantissa >> (-m_exponent);
-    return ret;
-}
+//template<>
+//inline virtual_float<q4_20>::operator q4_20() const
+//{
+//    q4_20 ret = (m_exponent >= 0) ? m_mantissa << m_exponent
+//                     : m_mantissa >> (-m_exponent);
+//    return ret;
+//}
+//
+//template<>
+//inline virtual_float<q8_40>::operator q4_20() const
+//{
+//    q4_20 ret = (m_exponent >= 0) ? m_mantissa << m_exponent
+//                     : m_mantissa >> (-m_exponent);
+//    return ret;
+//}
+//
+//template<>
+//inline virtual_float<q8_40>::operator q8_40() const
+//{
+//    q8_40 ret = (m_exponent >= 0) ? m_mantissa << m_exponent
+//                     : m_mantissa >> (-m_exponent);
+//    return ret;
+//}
 
 template<typename T>
 void virtual_float<T>::normalize()

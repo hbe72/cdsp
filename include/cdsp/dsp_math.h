@@ -13,7 +13,7 @@ namespace cdsp
 namespace math
 {
 
-static double constexpr c_pi{3.141592653589793238462643383279502884197169399L};
+static double constexpr c_pi{3.141592653589793238462643383279502884197169399};
 static double constexpr c_pi_2 = c_pi / 2.0;
 static double constexpr c_2_pi = c_pi * 2.0;
 

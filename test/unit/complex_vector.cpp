@@ -190,35 +190,36 @@ TEST(complex_vector, vector_dot)
         EXPECT_EQ(res.imag(), 145.0f);
     }
 }
-TEST(complex_vector, vector_virtual_float_dot)
-{
-    using cdsp::complex;
-    using cdsp::complex_vector;
-    using cdsp::dot;
-    using cdsp::virtual_float;
 
-    complex_vector<float> vec1(10, complex<float>(0.125f, 0.250f));
-    complex_vector<float> vec2(10, complex<float>(0.250f, 0.625f));
-    complex_vector<q4_20> vece1(10, complex<q4_20>(0.125f, 0.250f));
-    complex_vector<q4_20> vece2(10, complex<q4_20>(0.250f, 0.625f));
-
-    {
-        complex<virtual_float<float> > vf = dot<float, virtual_float<float> >(vec1, vec2);
-        EXPECT_EQ(static_cast<float>(vf.real()), 1.875f);
-        EXPECT_EQ(static_cast<float>(vf.imag()), -0.15625f);
-    }
-
-    {
-        complex<virtual_float<float> > vf = dot<float, virtual_float<float> >(vec1, vec2, true);
-        EXPECT_EQ(static_cast<float>(vf.real()), -1.25f);
-        EXPECT_EQ(static_cast<float>(vf.imag()), 1.40625f);
-    }
-    {
-        complex<virtual_float<q4_20> > vf = dot<q4_20, virtual_float<q4_20> >(vece1, vece2);
-        EXPECT_EQ(static_cast<float>(vf.real()), 1.875f);
-        EXPECT_EQ(static_cast<float>(vf.imag()), -0.15625f);
-        cdsp::complex<float> res = vf;
-        EXPECT_EQ(res.real(), 1.875f);
-        EXPECT_EQ(res.imag(), -0.15625f);
-    }
-}
+//TEST(complex_vector, vector_virtual_float_dot)
+//{
+//    using cdsp::complex;
+//    using cdsp::complex_vector;
+//    using cdsp::dot;
+//    using cdsp::virtual_float;
+//
+//    complex_vector<float> vec1(10, complex<float>(0.125f, 0.250f));
+//    complex_vector<float> vec2(10, complex<float>(0.250f, 0.625f));
+//    complex_vector<q4_20> vece1(10, complex<q4_20>(0.125f, 0.250f));
+//    complex_vector<q4_20> vece2(10, complex<q4_20>(0.250f, 0.625f));
+//
+//    {
+//        complex<virtual_float<float> > vf = dot<float, virtual_float<float> >(vec1, vec2);
+//        EXPECT_EQ(static_cast<float>(vf.real()), 1.875f);
+//        EXPECT_EQ(static_cast<float>(vf.imag()), -0.15625f);
+//    }
+//
+//    {
+//        complex<virtual_float<float> > vf = dot<float, virtual_float<float> >(vec1, vec2, true);
+//        EXPECT_EQ(static_cast<float>(vf.real()), -1.25f);
+//        EXPECT_EQ(static_cast<float>(vf.imag()), 1.40625f);
+//    }
+//    {
+//        complex<virtual_float<q4_20> > vf = dot<q4_20, virtual_float<q4_20> >(vece1, vece2);
+//        EXPECT_EQ(static_cast<float>(vf.real()), 1.875f);
+//        EXPECT_EQ(static_cast<float>(vf.imag()), -0.15625f);
+//        cdsp::complex<float> res = vf;
+//        EXPECT_EQ(res.real(), 1.875f);
+//        EXPECT_EQ(res.imag(), -0.15625f);
+//    }
+//}
