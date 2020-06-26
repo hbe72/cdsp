@@ -5,8 +5,6 @@
 #if !defined(CDSP_COMPLEX)
 #define CDSP_COMPLEX
 
-//#include <cmath>
-
 #include "dsp_types.h"
 #include "dsp_math.h"
 

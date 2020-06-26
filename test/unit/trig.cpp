@@ -12,7 +12,7 @@
 static constexpr double trig_accuracy = 1e-15;
 static constexpr double trig_interpolation_accuracy = 1e-7;
 static constexpr double trig_accuracy_q4_20 = 1e-6;
-static constexpr double trig_interpolation_accuracy_q4_20 = 2e-6;
+// static constexpr double trig_interpolation_accuracy_q4_20 = 2e-6;
 
 TEST(trig, cos_idx_double) {
     cdsp::trig<double>& myTrig = cdsp::trig<double>::instance();
@@ -106,33 +106,32 @@ TEST(trig, sin_idx_q4_20) {
     }
 }
 
-TEST(trig, cos_turn_q4_20) {
-    cdsp::trig<q4_20>& myTrig = cdsp::trig<q4_20>::instance();
-    std::size_t tests = 1 << 18;
-    double const twoPi {cdsp::math::c_2_pi};
-
-    for (std::size_t i = 0; i <= tests; ++i)
-    {
-        double turn = (double)i / (double)tests;
-        double radians = turn * twoPi;
-        EXPECT_NEAR(std::cos(radians),
-                    static_cast<double>(myTrig.cos_turn(static_cast<q4_20>(turn))),
-                    trig_interpolation_accuracy_q4_20);
-    }
-}
-
-
-TEST(trig, sin_turn_q4_20) {
-    cdsp::trig<q4_20>& myTrig = cdsp::trig<q4_20>::instance();
-    std::size_t tests = 1 << 18;
-    double const twoPi {cdsp::math::c_2_pi};
-
-    for (std::size_t i = 0; i <= tests; ++i)
-    {
-        double turn = (double)i / (double)tests;
-        double radians = turn * twoPi;
-        EXPECT_NEAR(std::sin(radians),
-                    static_cast<double>(myTrig.sin_turn(static_cast<q4_20>(turn))),
-                    trig_interpolation_accuracy_q4_20);
-    }
-}
+//TEST(trig, cos_turn_q4_20) {
+//    cdsp::trig<q4_20>& myTrig = cdsp::trig<q4_20>::instance();
+//    std::size_t tests = 1 << 12;
+//    double const twoPi {cdsp::math::c_2_pi};
+//
+//    for (std::size_t i = 0; i <= tests; ++i)
+//    {
+//        double turn = (double)i / (double)tests;
+//        double radians = turn * twoPi;
+//        EXPECT_NEAR(std::cos(radians),
+//                    static_cast<double>(myTrig.cos_turn(static_cast<q4_20>(turn))),
+//                    trig_interpolation_accuracy_q4_20);
+//    }
+//}
+//
+//TEST(trig, sin_turn_q4_20) {
+//    cdsp::trig<q4_20>& myTrig = cdsp::trig<q4_20>::instance();
+//    std::size_t tests = 1 << 12;
+//    double const twoPi {cdsp::math::c_2_pi};
+//
+//    for (std::size_t i = 0; i <= tests; ++i)
+//    {
+//        double turn = (double)i / (double)tests;
+//        double radians = turn * twoPi;
+//        EXPECT_NEAR(std::sin(radians),
+//                    static_cast<double>(myTrig.sin_turn(static_cast<q4_20>(turn))),
+//                    trig_interpolation_accuracy_q4_20);
+//    }
+//}

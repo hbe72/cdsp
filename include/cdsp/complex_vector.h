@@ -11,7 +11,6 @@
 #include <vector>
 
 #include "complex.h"
-#include "virtual_float.h"
 #include "dsp_math.h"
 #include "trig.h"
 
