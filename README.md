@@ -36,21 +36,18 @@ processors as well as for ASIC implementation.
 
 Requirements are the same as with [CNL](https://github.com/johnmcfarlane/cnl).
 CDSP pulls CNL from it's conan package.
-
-### Linux
-Requires:
 * [Cmake](https://cmake.org/) 3.5.1
 * [Conan](https://conan.io/downloads.html)
 
-Optional:
+### Linux
+Tested on [Travis] (https://travis-ci.org/github/hbe72/cdsp)
 
 ### Mac
-See the instructions for Linux. Works similarly. 
+Tested on [Travis] (https://travis-ci.org/github/hbe72/cdsp).
 For missing packages (compilers) please use [Homebrew](https://brew.sh/).
 
 ### Windows
 Tested on [AppVeyor](https://ci.appveyor.com/project/hbe72/cdsp)
-and on *Windows 10 Professional* with *CMake 3.8.0*.
 
 ## Instructions
 ### Download
@@ -67,32 +64,56 @@ mkdir build
 cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/directory/to/install -DCMAKE_BUILD_TYPE=Release
 cmake --build . --target install
-```     
+```
 
 ### Test    
 1. Conan for essential dependencies:
-   ```shell
-   conan remote add --force johnmcfarlane/cnl https://api.bintray.com/conan/johnmcfarlane/cnl
-   conan profile new --detect --force default
-   conan profile update settings.compiler.libcxx=libstdc++11 default
-   conan install --build=missing ..
-   ```
+    ```shell
+    conan remote add --force johnmcfarlane/cnl https://api.bintray.com/conan/johnmcfarlane/cnl
+    conan profile new --detect --force default
+    ```
+    For GCC:
+
+    ```shell
+    conan profile update settings.compiler.libcxx=libstdc++11 default
+    ```
+
+    On OSX for clang or for apple-clang:
+    ```shell
+    conan profile update settings.compiler.libcxx=libc++ default
+    ```
+
+    On Windows:
+    ```shell
+    conan profile update settings.compiler="Visual Studio" default
+    conan profile update settings.os=Windows default
+    ```
+
+    And finally install the dependencies:
+    ```shell
+    conan install --build=missing ..
+    ```
 
 2. Configure the build with apprpriate toolchain.
+    With GCC:
    ```shell
-   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../test/cmake/toolchain/gcc.cmake -DCMAKE_PROJECT_cdsp_INCLUDE:FILEPATH="$(pwd)"/conan_paths.cmake ..
+   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../test/cmake/toolchain/gcc.cmake -DCNL_SANITIZE=OFF -DCMAKE_PROJECT_cdsp_INCLUDE:FILEPATH="$(pwd)"/conan_paths.cmake ..
    ```
-   or
+   or with Clang:
    ```shell
-   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../test/cmake/toolchain/clang.cmake -DCMAKE_PROJECT_cdsp_INCLUDE:FILEPATH="$(pwd)"/conan_paths.cmake ..
+   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../test/cmake/toolchain/clang.cmake -DCNL_SANITIZE=OFF -DCMAKE_PROJECT_cdsp_INCLUDE:FILEPATH="$(pwd)"/conan_paths.cmake ..
+   ```
+   or with MSVC:
+   ```shell
+   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../test/cmake/toolchain/msvc.cmake -DCNL_SANITIZE=OFF -DCMAKE_PROJECT_cdsp_INCLUDE:FILEPATH="$(pwd)"/conan_paths.cmake ..
    ```
    
 3. Build tests:
-   ```sh
+   ```shell
    cmake --build . --target test-all
    ```
 
 4. Run tests:
-   ```sh
+   ```shell
    ctest -R test-unit
    ```
