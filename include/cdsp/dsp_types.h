@@ -7,7 +7,7 @@
 
 #include <cnl/all.h>
 
-/*namespace cdsp
+namespace cdsp
 {
 
     template<
@@ -38,9 +38,10 @@ using rounding_elastic_number = cnl::fixed_point<rounding_elastic_integer<Digits
 }
 // Elastic fixed point types equivalent to Cirrus ADSP2
 typedef cdsp::rounding_elastic_number<24, -20> q4_20;
-typedef cdsp::rounding_elastic_number<48, -40> q8_40;*/
+typedef cdsp::rounding_elastic_number<48, -40> q8_40;
 
-typedef cnl::static_number<24, -20> q4_20;
-typedef cnl::static_number<48, -40> q8_40;
+// Simpler type with truncation rather than rounding
+// typedef cnl::static_number<24, -20> q4_20;
+// typedef cnl::static_number<48, -40> q8_40;
 
 #endif //CDSP_TYPES
