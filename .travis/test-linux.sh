@@ -28,7 +28,6 @@ docker run \
     -DCMAKE_TOOLCHAIN_FILE=\"${CONTAINER_PROJECT_DIR}/test/cmake/toolchain/${TOOLCHAIN}\".cmake \
     -DCNL_EXCEPTIONS=\"${EXCEPTIONS}\" \
     -DCNL_INT128=\"${INT128}\" \
-    -DCNL_SANITIZE=OFF \
     -G \"${GENERATOR}\""
 
 ccache --show-stats

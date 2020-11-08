@@ -123,22 +123,24 @@ static T find_max(complex_vector<T>& in)
 template<typename T>
 static void normalize(complex_vector<T>& in, int norm)
 {
+    if (norm == 0) return;
     std::vector<T>& inreal = in.real_data();
     std::vector<T>& inimag = in.imag_data();
+    auto fac = 1 << std::abs(norm);
     if (norm < 0)
     {
         for (std::size_t i = 0; i < in.size(); ++i)
         {
-            inreal[i] = inreal[i] >> -norm;
-            inimag[i] = inimag[i] >> -norm;
+            inreal[i] = inreal[i] / fac;
+            inimag[i] = inimag[i] / fac;
         }
     }
     else
     {
         for (std::size_t i = 0; i < in.size(); ++i)
         {
-            inreal[i] = inreal[i] << norm;
-            inimag[i] = inimag[i] << norm;
+            inreal[i] = inreal[i] * fac;
+            inimag[i] = inimag[i] * fac;
         }
     }
 }
