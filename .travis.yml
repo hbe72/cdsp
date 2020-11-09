@@ -10,10 +10,6 @@ jobs:
       os: linux
       env: IMG=cnl_ci:base-20.04 SCRIPT=test/scripts/shellcheck.sh
 
-    - name: Linux/Clang 10, Unit test
-      os: linux
-      env: IMG=cnl_ci:clang-10 SCRIPT=test/scripts/unit-test.sh STANDARD=20 TOOLCHAIN=clang GENERATOR="Unix Makefiles"
-
     - name: Linux/GCC 10, Unit test
       os: linux
       env: IMG=cnl_ci:gcc-10 SCRIPT=test/scripts/unit-test.sh STANDARD=20 GENERATOR="Unix Makefiles"
