@@ -126,7 +126,7 @@ static void normalize(complex_vector<T>& in, int norm)
     if (norm == 0) return;
     std::vector<T>& inreal = in.real_data();
     std::vector<T>& inimag = in.imag_data();
-    auto fac = 1 << std::abs(norm);
+    auto fac = static_cast<T> (1 << std::abs(norm));
     if (norm < 0)
     {
         for (std::size_t i = 0; i < in.size(); ++i)
@@ -263,13 +263,13 @@ inline int fft(complex_vector<q4_20>& vector)
     return bf_core(vector, false);
 }
 
-#if defined(CNL_INT128_ENABLED)
-template<>
-inline int fft(complex_vector<q8_40>& vector)
-{
-    return bf_core(vector, false);
-}
-#endif
+//#if defined(CNL_INT128_ENABLED)
+//template<>
+//inline int fft(complex_vector<q8_40>& vector)
+//{
+//    return bf_core(vector, false);
+//}
+//#endif
 
 template<class T>
 int ifft(complex_vector<T>& vector)
@@ -284,13 +284,13 @@ inline int ifft(complex_vector<q4_20>& vector)
     return bf_core(vector, true);
 }
 
-#if defined(CNL_INT128_ENABLED)
-template<>
-inline int ifft(complex_vector<q8_40>& vector)
-{
-    return bf_core(vector, true);
-}
-#endif
+//#if defined(CNL_INT128_ENABLED)
+//template<>
+//inline int ifft(complex_vector<q8_40>& vector)
+//{
+//    return bf_core(vector, true);
+//}
+//#endif
 
 template<class T>
 int real_fft(std::vector<T> const& in, complex_vector<T>& out)
@@ -322,22 +322,22 @@ inline int real_fft(std::vector<q4_20> const& in, complex_vector<q4_20>& out)
     return exponent;
 }
 
-#if defined(CNL_INT128_ENABLED)
-template<>
-inline int real_fft(std::vector<q8_40> const& in, complex_vector<q8_40>& out)
-{
-    out.reserve(1 + in.size() / 2);
-    out.resize(in.size() / 2);
-    std::size_t index = 0;
-    for (auto input = in.begin(); input != in.end(); input += 2, index++)
-    {
-        out.set_at(index, complex<q8_40>(*input, *(input + 1)));
-    }
-    int exponent = bf_core(out, false);
-    real_fft_postprocess(out);
-    return exponent;
-}
-#endif
+//#if defined(CNL_INT128_ENABLED)
+//template<>
+//inline int real_fft(std::vector<q8_40> const& in, complex_vector<q8_40>& out)
+//{
+//    out.reserve(1 + in.size() / 2);
+//    out.resize(in.size() / 2);
+//    std::size_t index = 0;
+//    for (auto input = in.begin(); input != in.end(); input += 2, index++)
+//    {
+//        out.set_at(index, complex<q8_40>(*input, *(input + 1)));
+//    }
+//    int exponent = bf_core(out, false);
+//    real_fft_postprocess(out);
+//    return exponent;
+//}
+//#endif
 
 } // namespace fft
 } // namespace cdsp

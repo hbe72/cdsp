@@ -283,83 +283,83 @@ TEST(fft, forward_random_q4_20)
     }
 }
 
-#if defined(CNL_INT128_ENABLED)
-TEST(fft, forward_random_q8_40)
-{
-    unsigned int fftSize = 2048;
-
-    std::mt19937 mt(91);
-    std::uniform_real_distribution<double> fdist(-0.5, 0.5);
-
-    std::vector<double>     input(fftSize);
-    std::vector<q8_40>      input_fix(fftSize);
-    cdsp::complex_vector<double>     vec_double(fftSize);
-    cdsp::complex_vector<double>     vec_double_real(1 + fftSize / 2);
-    cdsp::complex_vector<q8_40> vec_fix(fftSize);
-    cdsp::complex_vector<q8_40> vec_fix_real(1 + fftSize / 2);
-    std::vector<double>& re_double = vec_double.real_data();
-    std::vector<q8_40>& re_fix = vec_fix.real_data();
-
-    std::generate(input.begin(), input.end(),
-                  [&] ()
-                  {
-                      double val = fdist(mt);
-                      q8_40 val_fix = val;
-                      return static_cast<double>(val_fix);
-                  });
-    std::transform(input.begin(),
-                   input.end(),
-                   input_fix.begin(),
-                   [] (double& val)
-                   {
-                       return val;
-                   });
-    std::transform(input.begin(),
-                   input.end(),
-                   re_double.begin(),
-                   [] (double& val)
-                   {
-                       return val;
-                   });
-    std::transform(input_fix.begin(),
-                   input_fix.end(),
-                   re_fix.begin(),
-                   [] (q8_40 & val)
-                   {
-                       return val;
-                   });
-    // Check that inputs are ~ bit exact
-    for (unsigned int i = 0; i < fftSize; ++i)
-    {
-        EXPECT_NEAR(vec_double[i].real(),
-                    static_cast<double>(vec_fix[i].real()), FFT_Q8_40_ACCURACY);
-        EXPECT_NEAR(vec_double[i].imag(),
-                    static_cast<double>(vec_fix[i].imag()), FFT_Q8_40_ACCURACY);
-    }
-
-    cdsp::fft::fft<double>(vec_double);
-    cdsp::fft::real_fft<double>(input, vec_double_real);
-
-    int exponent_fix = cdsp::fft::fft<q8_40>(vec_fix);
-    int exponent_fix_real = cdsp::fft::real_fft<q8_40>(input_fix, vec_fix_real);
-
-    auto scale = pow(2.0, exponent_fix);
-    auto scale_real = pow(2.0, exponent_fix_real);
-
-    for (unsigned int i = 0; i < fftSize; ++i)
-    {
-        EXPECT_NEAR(vec_double[i].real(),
-                    static_cast<double>(vec_fix[i].real()) * scale, FFT_Q8_40_ACCURACY);
-        EXPECT_NEAR(vec_double[i].imag(),
-                    static_cast<double>(vec_fix[i].imag()) * scale, FFT_Q8_40_ACCURACY);
-    }
-
-    for (unsigned int i = 0; i < 1 + fftSize / 2; ++i)
-    {
-        EXPECT_NEAR(vec_double_real[i].real(),
-                    static_cast<double>(vec_fix_real[i].real()) * scale_real, FFT_Q8_40_ACCURACY);
-        EXPECT_NEAR(vec_double_real[i].imag(),
-                    static_cast<double>(vec_fix_real[i].imag()) * scale_real, FFT_Q8_40_ACCURACY);
-    }
-}
-#endif
+//#if defined(CNL_INT128_ENABLED)
+//TEST(fft, forward_random_q8_40)
+//{
+//    unsigned int fftSize = 2048;
+//
+//    std::mt19937 mt(91);
+//    std::uniform_real_distribution<double> fdist(-0.5, 0.5);
+//
+//    std::vector<double>     input(fftSize);
+//    std::vector<q8_40>      input_fix(fftSize);
+//    cdsp::complex_vector<double>     vec_double(fftSize);
+//    cdsp::complex_vector<double>     vec_double_real(1 + fftSize / 2);
+//    cdsp::complex_vector<q8_40> vec_fix(fftSize);
+//    cdsp::complex_vector<q8_40> vec_fix_real(1 + fftSize / 2);
+//    std::vector<double>& re_double = vec_double.real_data();
+//    std::vector<q8_40>& re_fix = vec_fix.real_data();
+//
+//    std::generate(input.begin(), input.end(),
+//                  [&] ()
+//                  {
+//                      double val = fdist(mt);
+//                      q8_40 val_fix = val;
+//                      return static_cast<double>(val_fix);
+//                  });
+//    std::transform(input.begin(),
+//                   input.end(),
+//                   input_fix.begin(),
+//                   [] (double& val)
+//                   {
+//                       return val;
+//                   });
+//    std::transform(input.begin(),
+//                   input.end(),
+//                   re_double.begin(),
+//                   [] (double& val)
+//                   {
+//                       return val;
+//                   });
+//    std::transform(input_fix.begin(),
+//                   input_fix.end(),
+//                   re_fix.begin(),
+//                   [] (q8_40 & val)
+//                   {
+//                       return val;
+//                   });
+//    // Check that inputs are ~ bit exact
+//    for (unsigned int i = 0; i < fftSize; ++i)
+//    {
+//        EXPECT_NEAR(vec_double[i].real(),
+//                    static_cast<double>(vec_fix[i].real()), FFT_Q8_40_ACCURACY);
+//        EXPECT_NEAR(vec_double[i].imag(),
+//                    static_cast<double>(vec_fix[i].imag()), FFT_Q8_40_ACCURACY);
+//    }
+//
+//    cdsp::fft::fft<double>(vec_double);
+//    cdsp::fft::real_fft<double>(input, vec_double_real);
+//
+//    int exponent_fix = cdsp::fft::fft<q8_40>(vec_fix);
+//    int exponent_fix_real = cdsp::fft::real_fft<q8_40>(input_fix, vec_fix_real);
+//
+//    auto scale = pow(2.0, exponent_fix);
+//    auto scale_real = pow(2.0, exponent_fix_real);
+//
+//    for (unsigned int i = 0; i < fftSize; ++i)
+//    {
+//        EXPECT_NEAR(vec_double[i].real(),
+//                    static_cast<double>(vec_fix[i].real()) * scale, FFT_Q8_40_ACCURACY);
+//        EXPECT_NEAR(vec_double[i].imag(),
+//                    static_cast<double>(vec_fix[i].imag()) * scale, FFT_Q8_40_ACCURACY);
+//    }
+//
+//    for (unsigned int i = 0; i < 1 + fftSize / 2; ++i)
+//    {
+//        EXPECT_NEAR(vec_double_real[i].real(),
+//                    static_cast<double>(vec_fix_real[i].real()) * scale_real, FFT_Q8_40_ACCURACY);
+//        EXPECT_NEAR(vec_double_real[i].imag(),
+//                    static_cast<double>(vec_fix_real[i].imag()) * scale_real, FFT_Q8_40_ACCURACY);
+//    }
+//}
+//#endif

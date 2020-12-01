@@ -33,14 +33,14 @@ namespace cdsp
         return input;
     }
 
-template<int Digits, int Exponent = 0, class RoundingTag = cnl::nearest_rounding_tag, class Narrowest = signed>
+template<int Digits, int Exponent = 0, class RoundingTag = cnl::tie_to_pos_inf_rounding_tag, class Narrowest = signed>
 using rounding_elastic_number = cnl::fixed_point<rounding_elastic_integer<Digits, RoundingTag, Narrowest>, Exponent>;
 }
 // Elastic fixed point types equivalent to Cirrus ADSP2
 typedef cdsp::rounding_elastic_number<24, -20> q4_20;
 typedef cdsp::rounding_elastic_number<48, -40> q8_40;
 
-// Simpler type with truncation rather than rounding
+// Simpler type with native rather than rounding
 // typedef cnl::static_number<24, -20> q4_20;
 // typedef cnl::static_number<48, -40> q8_40;
 

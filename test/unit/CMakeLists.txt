@@ -2,8 +2,6 @@ enable_testing()
 
 # DSP tests
 set(test_sources
-        rounding.cpp
-        basic_math.cpp
         biquad.cpp
         biquad_cascade.cpp
         complex.cpp
