@@ -131,14 +131,18 @@ static void normalize(complex_vector<T>& in, int norm)
     {
         for (std::size_t i = 0; i < in.size(); ++i)
         {
-            inreal[i] = inreal[i] / fac;
-            inimag[i] = inimag[i] / fac;
+            // inreal[i] = inreal[i] >> -norm;
+            // inimag[i] = inimag[i] >> -norm;
+            inreal[i] = cdsp::math::divides<T,T>()(inreal[i], fac);
+            inimag[i] = cdsp::math::divides<T,T>()(inimag[i], fac);
         }
     }
     else
     {
         for (std::size_t i = 0; i < in.size(); ++i)
         {
+            // inreal[i] = inreal[i] << norm;
+            // inimag[i] = inimag[i] << norm;
             inreal[i] = inreal[i] * fac;
             inimag[i] = inimag[i] * fac;
         }
