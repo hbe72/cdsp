@@ -14,6 +14,10 @@ jobs:
       os: linux
       env: IMG=cnl_ci:gcc-10 SCRIPT=test/scripts/unit-test.sh STANDARD=20 GENERATOR="Unix Makefiles"
 
+    - name: Linux/GCC 7, Unit test
+      os: linux
+      env: IMG=johnmcfarlane/cnl_ci:gcc-7 SCRIPT=test/scripts/unit-test.sh STANDARD=17 GENERATOR="Unix Makefiles"
+
     - name: OS X/GCC 8, Unit test
       os: osx
       osx_image: xcode11.5
