@@ -10,8 +10,16 @@ set(CMAKE_CXX_STANDARD 17)
 
 cmake_minimum_required(VERSION 3.5.1)
 
-include(CTest)
-add_subdirectory("test")
+unset(CDSP_STANDALONE)
+if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+    set(CDSP_STANDALONE ON)
+endif()
+
+option(CDSP_ENABLE_TESTS "Set to true to enable tests" ${CDSP_STANDALONE})
+if (CDSP_ENABLE_TESTS)
+    include(CTest)
+    add_subdirectory("test")
+endif()
 
 # the CDSP library
 add_library(Cdsp INTERFACE)
@@ -21,9 +29,12 @@ target_include_directories(
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
 
-install(TARGETS Cdsp EXPORT CdspTargets)
-install(DIRECTORY include/ DESTINATION include)
-install(EXPORT CdspTargets
-        FILE CdspConfig.cmake
-        NAMESPACE Cdsp::
-        DESTINATION lib/cmake/cdsp)
+option(CDSP_ENABLE_INSTALL "Set to true to set install directives" ${CDSP_STANDALONE})
+if (CDSP_ENABLE_INSTALL)
+    install(TARGETS Cdsp EXPORT CdspTargets)
+    install(DIRECTORY include/ DESTINATION include)
+    install(EXPORT CdspTargets
+            FILE CdspConfig.cmake
+            NAMESPACE Cdsp::
+            DESTINATION lib/cmake/cdsp)
+endif()
