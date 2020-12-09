@@ -6,6 +6,7 @@
 #define CDSP_BIQUAD
 
 #include <array>
+#include <cassert>
 #include <vector>
 
 #include "circular_buffer.h"

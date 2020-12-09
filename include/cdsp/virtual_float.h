@@ -5,6 +5,8 @@
 #if !defined(CDSP_VIRTUAL_FLOAT)
 #define CDSP_VIRTUAL_FLOAT
 
+#include <cassert>
+
 #include "dsp_types.h"
 #include "dsp_math.h"
 
