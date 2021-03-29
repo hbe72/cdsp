@@ -20,7 +20,7 @@ class CdspConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake_paths", "cmake_find_package"
     no_copy_source = True
-    requires = "gtest/1.10.0","cnl/1.1.0@johnmcfarlane/development"
+    requires = "gtest/1.10.0"
 
     scm = {
         "type": "git",

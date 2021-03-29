@@ -11,11 +11,18 @@ set(test_sources
         trig.cpp
         )
 
+# add_cnl_dependency
+function(add_cnl_dependency target)
+    ExternalProject_Get_Property(cnl source_dir)
+    target_include_directories("${target}" SYSTEM PRIVATE "${source_dir}/include")
+    add_dependencies("${target}" cnl)
+endfunction(add_cnl_dependency)
+
 ######################################################################
 # add_cdsp_dependency
 function(add_cdsp_dependencies target)
     target_link_libraries("${target}" GTest::GTest)
-    target_include_directories("${target}" PRIVATE ${cnl_INCLUDE_DIRS})
+    # target_include_directories("${target}" PRIVATE ${cnl_INCLUDE_DIRS})
     target_include_directories("${target}" PRIVATE ${GTest_INCLUDE_DIRS})
 endfunction(add_cdsp_dependencies)
 
@@ -37,6 +44,7 @@ function(make_test source out_target compile_flags linker_flags)
     target_link_libraries("${target}" "${COMMON_LINK_FLAGS}" ${linker_flags})
     add_test("${target}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${target}")
 
+    add_cnl_dependency("${target}")
     add_cdsp_dependencies("${target}")
 
     # Add to test-all custom target.
